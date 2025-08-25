@@ -14,14 +14,15 @@
 
     body {
       font-family: Times New Roman;
-      font-size: large;
+      font-size: clamp(0.9rem, 1.2vw, 1.1rem);
       background-color: #330000;
       color: white;
       margin-top: 100px;
       text-align: center;
-      padding: 2rem;
+      padding: clamp(1rem, 2vw, 2rem);
     }
 
+    /* --- Navbar --- */
     .navbar {
       position: fixed;
       top: 0;
@@ -32,27 +33,22 @@
       align-items: center;
       color: white;
       z-index: 1000;
-      padding: 0.5rem 1rem;
+      padding: clamp(0.5rem, 1vw, 0.5rem) clamp(1rem, 2vw, 1rem);
       box-shadow: 0 1px 20px rgba(34, 0, 0, 1);
       background: linear-gradient(to bottom, #fff8 0%, #fff5 10%, #fff2 50%, #fff0 50%, #fff0 75%, #fff3);
     }
 
-.navbar::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background:
-    linear-gradient(to bottom, #fff8 0%, #fff5 10%, #fff2 50%, #fff0 50%, #fff0 75%, #fff3),
-    linear-gradient(to right,#D92121 0,#D92121 calc(100% - 240px),#FF5C00 calc(100% - 240px),#FF5C00 100%);
-  z-index: -1;
-  transition: opacity 1s ease;
-  opacity: 1;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-}
+    .navbar::before {
+      content: "";
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background:
+        linear-gradient(to bottom, #fff8 0%, #fff5 10%, #fff2 50%, #fff0 50%, #fff0 75%, #fff3),
+        linear-gradient(to right, #D92121 0, #D92121 calc(100% - 200px), #FF5C00 calc(100% - 200px), #FF5C00 100%);
+      z-index: -1;
+      transition: opacity 1s ease;
+      opacity: 1;
+    }
 
     .navbar.scrolled::before {
       opacity: 0;
@@ -64,9 +60,9 @@
     }
 
     .navbar .logo {
-      font-size: 1.5rem;
+      font-size: clamp(1.2rem, 2vw, 1.5rem);
       font-weight: bold;
-      transition: transform 0.3s ease, filter 0.3s ease;
+      transition: transform 0.3s ease;
     }
 
     .navbar .logo:hover {
@@ -76,8 +72,9 @@
     .navbar nav a {
       color: white;
       text-decoration: none;
-      margin-left: 1rem;
+      margin-left: clamp(0.5rem, 1vw, -3rem);
       font-weight: 500;
+      font-size: clamp(1rem, 1vw, 1rem);
       transition: color 0.3s;
     }
 
@@ -86,82 +83,76 @@
     }
 
     @media (max-width: 400px) {
-      .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .navbar nav {
-        margin-top: 0.5rem;
-      }
-
       .navbar nav a {
-        margin-left: 0;
-        margin-right: 1rem;
+        font-size: 0.1;
       }
     }
-
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 2rem;
+      font-size: clamp(2rem, 5vw, 2.5rem);
+      margin-bottom: clamp(1rem, 2vw, 2rem);
       color: #ff6767;
     }
 
     h2 {
-      font-size: 1.4rem;
+      font-size: clamp(1.2rem, 2.5vw, 1.4rem);
       color: #ffbb44;
-      margin-bottom: 0.5rem;
+      margin-bottom: clamp(0.3rem, 1vw, 0.5rem);
     }
 
     p {
-      font-size: 1rem;
-      max-width: 500px;
-      margin: 0 auto 2rem;
+      font-size: clamp(0.9rem, 1.2vw, 1rem);
+      max-width: clamp(350px, 50vw, 500px);
+      margin: 0 auto clamp(1rem, 2vw, 2rem);
       color: #ffa26e;
     }
-    
+
     a {
       color: #ffa26e;
       text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    a:hover {
+      color: #ff6767;
+      text-decoration: underline;
     }
 
     .info-section {
       display: flex;
       flex-direction: column;
-      gap: 2rem;
-      margin-top: 2rem;
+      gap: clamp(1rem, 2vw, 2rem);
+      margin-top: clamp(1rem, 2vw, 2rem);
       align-items: center;
     }
 
-.info-block {
-  flex: 1;
-  max-width: 700px;
-  padding: 1rem;
-  border-bottom: 3px solid rgba(255, 255, 255, 0.2);
-}
+    .info-block {
+      flex: 1;
+      max-width: clamp(300px, 50vw, 700px);
+      padding: clamp(0.5rem, 1vw, 1rem);
+      border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+    }
 
-.info-block:last-child {
-  border-bottom: none;
-}
+    .info-block:last-child {
+      border-bottom: none;
+    }
 
-@media (min-width: 1200px) {
-  .info-section {
-    flex-direction: row;
-    justify-content: center;
-    align-items: flex-start;
-    text-align: center;
-  }
+    @media (min-width: 1200px) {
+      .info-section {
+        flex-direction: row;
+        justify-content: center;
+        align-items: flex-start;
+        text-align: center;
+      }
 
-  .info-block {
-    border-bottom: none;
-    border-right: 3px solid rgba(255, 255, 255, 0.2);
-  }
+      .info-block {
+        border-bottom: none;
+        border-right: 3px solid rgba(255, 255, 255, 0.2);
+      }
 
-  .info-block:last-child {
-    border-right: none;
-  }
-}
-
+      .info-block:last-child {
+        border-right: none;
+      }
+    }
   </style>
 </head>
 
@@ -198,12 +189,12 @@
         <p>For those who make 3D models, want to study SLR or just love trains a little too much.
           Especially those who love model trains but don't have a reliable place to get reference images, dimensions, etc.</p>
       </div>
-      
+
       <div class="info-block">
         <h2>Who I am</h2>
         <p>
           I'm the owner of <a href="https://chipflare.github.io">ChipFlare Studios</a>. All the articles are written by myself as well as all the photos are copyright material of ChipFlare Studios.
-          You can still use them for personal use, but not for commetcial use.
+          You can still use them for personal use, but not for commercial use.
         </p>
       </div>
     </div>
@@ -213,11 +204,7 @@
     const navbar = document.querySelector('.navbar');
 
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 10) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
+      navbar.classList.toggle('scrolled', window.scrollY > 10);
     });
   </script>
 </body>
