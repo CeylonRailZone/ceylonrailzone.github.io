@@ -208,7 +208,6 @@
       grid-template-columns: repeat(2, 1fr);
       gap: clamp(2px, 0.5vw, 5px);
       max-width: clamp(150px, 50vw, 300px);
-      margin-top: clamp(10px, 2vw, 20px);
     }
 
     .image-collage-2 {
@@ -216,14 +215,19 @@
       grid-template-columns: 1fr;
       gap: clamp(2px, 0.5vw, 5px);
       max-width: clamp(150px, 50vw, 300px);
-      margin-top: clamp(10px, 2vw, 20px);
       margin-right: clamp(20px, 5vw, 50px);
+      margin-top: 50px;
     }
 
     .image-collage .description-image {
       object-fit: cover;
       margin-top: 0px;
       margin-bottom: 0px;
+    }  
+    .image-collage-2 .description-image {
+      object-fit: cover;
+      margin-top: 0px;
+      margin-bottom: 15px;
     }  
 
     @media (max-width: 700px) {
@@ -268,6 +272,7 @@
       padding: clamp(0.5rem, 1vw, 1rem);
       border-radius: 8px;
       box-shadow: 0 0 30px rgba(155, 155, 155, 0.3);
+      overflow: hidden;
     }
 
     #lightbox img {
@@ -275,6 +280,7 @@
       max-height: 90vh;
       border-radius: 8px;
       box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+      transition: transform 0.2s ease;
     }
 
     #lightbox-caption {
@@ -343,100 +349,164 @@
     <div id="lightbox-caption"></div>
   </div>
 
-  <script>
-    const navbar = document.querySelector('.navbar');
-    const content = document.getElementById("projectContent");
+<script>
+  const navbar = document.querySelector('.navbar');
+  const content = document.getElementById("projectContent");
 
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 10);
-    });
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 10);
+  });
 
-    function loadProject(projectId) {
-      if (!projectId) {
-        content.innerHTML = "<h2 style='color:#ff6767; text-align:center'>No entry selected.</h2>";
-        return;
-      }
-
-      fetch(`entries/${projectId}.html`)
-        .then(res => {
-          if (!res.ok) throw new Error("Not found");
-          return res.text();
-        })
-        .then(html => {
-          content.innerHTML = html;
-
-          const prev = content.querySelector('[data-nav="prev"]');
-          const next = content.querySelector('[data-nav="next"]');
-
-          const timeElement = content.querySelector('.time');
-          if (!timeElement) return;
-
-          const navContainer = document.createElement('div');
-          navContainer.style.textAlign = 'center';
-          navContainer.style.marginTop = '1.5rem';
-          navContainer.style.marginBottom = '2rem';
-          navContainer.style.display = 'flex';
-          navContainer.style.justifyContent = 'center';
-          navContainer.style.gap = '20px';
-
-          if (prev) {
-            const prevBtn = document.createElement('a');
-            prevBtn.href = `data.html#${prev.dataset.target}`;
-            prevBtn.textContent = '◀ Previous';
-            prevBtn.className = 'nav-button';
-            navContainer.appendChild(prevBtn);
-          }
-
-          if (next) {
-            const nextBtn = document.createElement('a');
-            nextBtn.href = `data.html#${next.dataset.target}`;
-            nextBtn.textContent = 'Next ▶';
-            nextBtn.className = 'nav-button';
-            navContainer.appendChild(nextBtn);
-          }
-
-          if (prev || next) {
-            timeElement.insertAdjacentElement('afterend', navContainer);
-          }
-        })
-        .catch(err => {
-          content.innerHTML = "<h2 style='color:#ff6767; text-align:center'>Entry not found or failed to load.</h2>";
-          console.error(err);
-        });
+  function loadProject(projectId) {
+    if (!projectId) {
+      content.innerHTML = "<h2 style='color:#ff6767; text-align:center'>No entry selected.</h2>";
+      return;
     }
 
-    // Initial load
-    const initialId = location.hash.slice(1);
-    loadProject(initialId);
+    fetch(`entries/${projectId}.html`)
+      .then(res => {
+        if (!res.ok) throw new Error("Not found");
+        return res.text();
+      })
+      .then(html => {
+        content.innerHTML = html;
 
-    // Reload when hash changes
-    window.addEventListener('hashchange', () => {
-      const newId = location.hash.slice(1);
-      loadProject(newId);
-    });
+        const prev = content.querySelector('[data-nav="prev"]');
+        const next = content.querySelector('[data-nav="next"]');
+        const timeElement = content.querySelector('.time');
 
-    // Lightbox functionality
-    document.addEventListener('click', function (e) {
-      const target = e.target;
-      if (target.tagName === 'IMG' && (target.classList.contains('project-image') || target.classList.contains('description-image'))) {
-        const lightboxImg = document.getElementById('lightbox-img');
-        const caption = document.getElementById('lightbox-caption');
+        if (!timeElement) return;
+
+        const navContainer = document.createElement('div');
+        navContainer.style.textAlign = 'center';
+        navContainer.style.marginTop = '1.5rem';
+        navContainer.style.marginBottom = '2rem';
+        navContainer.style.display = 'flex';
+        navContainer.style.justifyContent = 'center';
+        navContainer.style.gap = '20px';
+
+        if (prev) {
+          const prevBtn = document.createElement('a');
+          prevBtn.href = `data.html#${prev.dataset.target}`;
+          prevBtn.textContent = '◀ Previous';
+          prevBtn.className = 'nav-button';
+          navContainer.appendChild(prevBtn);
+        }
+
+        if (next) {
+          const nextBtn = document.createElement('a');
+          nextBtn.href = `data.html#${next.dataset.target}`;
+          nextBtn.textContent = 'Next ▶';
+          nextBtn.className = 'nav-button';
+          navContainer.appendChild(nextBtn);
+        }
+
+        if (prev || next) {
+          timeElement.insertAdjacentElement('afterend', navContainer);
+        }
+      })
+      .catch(err => {
+        content.innerHTML = "<h2 style='color:#ff6767; text-align:center'>Entry not found or failed to load.</h2>";
+        console.error(err);
+      });
+  }
+
+  // Initial load
+  const initialId = location.hash.slice(1);
+  loadProject(initialId);
+
+  // Reload when hash changes
+  window.addEventListener('hashchange', () => {
+    const newId = location.hash.slice(1);
+    loadProject(newId);
+  });
+
+  // -----------------------------
+  // Lightbox with zoom + drag
+  // -----------------------------
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const caption = document.getElementById('lightbox-caption');
+  let zoom = 1;
+  let translateX = 0, translateY = 0;
+  let isDragging = false, startX, startY;
+
+  document.addEventListener('click', function (e) {
+    const target = e.target;
+    if (target.tagName === 'IMG' && (target.classList.contains('project-image') || target.classList.contains('description-image'))) {
+      if (/Mobi|Android/i.test(navigator.userAgent)) {
+        // Mobile → open image in new tab
+        window.open(target.src, "_blank");
+      } else {
+        // Desktop → open lightbox
         lightboxImg.src = target.src;
         lightboxImg.alt = target.alt;
         caption.textContent = target.alt || '';
-        document.getElementById('lightbox').style.display = 'flex';
+        zoom = 1;
+        translateX = 0;
+        translateY = 0;
+        updateTransform();
+        lightbox.style.display = 'flex';
       }
-    });
+    }
+  });
 
-    document.getElementById('lightbox-close').addEventListener('click', () => {
-      document.getElementById('lightbox').style.display = 'none';
-    });
+  document.getElementById('lightbox-close').addEventListener('click', () => {
+    lightbox.style.display = 'none';
+  });
 
-    document.getElementById('lightbox').addEventListener('click', (e) => {
-      if (e.target.id === 'lightbox') {
-        e.target.style.display = 'none';
-      }
-    });
-  </script>
+  lightbox.addEventListener('click', (e) => {
+    if (e.target.id === 'lightbox') {
+      e.target.style.display = 'none';
+    }
+  });
+
+  function updateTransform() {
+    lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${zoom})`;
+    lightboxImg.style.transition = "none"; // no easing for dragging
+  }
+
+// Zoom with scroll (desktop only)
+lightbox.addEventListener("wheel", (e) => {
+  e.preventDefault();
+
+  const oldZoom = zoom;
+
+  // Update zoom
+  if (e.deltaY < 0) {
+    zoom *= 1.1; // zoom in
+  } else {
+    zoom = Math.max(1, zoom / 1.1); // zoom out
+  }
+
+  // ✅ No need to modify translateX / translateY
+  // Panning stays exactly where it is
+  // Scaling is naturally anchored at the image center
+  updateTransform();
+});
+
+
+
+  // Dragging
+  lightboxImg.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    startX = e.clientX - translateX;
+    startY = e.clientY - translateY;
+    e.preventDefault();
+  });
+
+  window.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    translateX = e.clientX - startX;
+    translateY = e.clientY - startY;
+    updateTransform();
+  });
+
+  window.addEventListener("mouseup", () => {
+    isDragging = false;
+  });
+</script>
+
+
 </body>
 </html>
