@@ -1,0 +1,472 @@
+/* --- Global Reset --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* --- Body: responsive font scaling & base styles --- */
+body {
+  font-family: Times New Roman;
+  font-size: clamp(0.9rem, 1.2vw, 1.1rem);
+  background-color: #330000;
+  color: white;
+  margin-top: 100px;
+  padding: clamp(1rem, 2vw, 2rem);
+  /* Added from 'about.html' */
+  text-align: center;
+}
+
+/* --- Links (General, from 'about.html') --- */
+a {
+  color: #ffa26e;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+a:hover {
+  color: #ff6767;
+  text-decoration: underline;
+}
+
+/* --- Navbar --- */
+.navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  z-index: 1000;
+  padding: clamp(0.5rem, 1vw, 0.5rem) clamp(1rem, 2vw, 1rem);
+  box-shadow: 0 1px 20px rgba(34, 0, 0, 1);
+  background: linear-gradient(to bottom, #fff8 0%, #fff5 10%, #fff2 50%, #fff0 50%, #fff0 75%, #fff3);
+}
+
+.navbar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to bottom, #fff8 0%, #fff5 10%, #fff2 50%, #fff0 50%, #fff0 75%, #fff3), linear-gradient(to right, #D92121 0, #D92121 calc(100% - 200px), #FF5C00 calc(100% - 200px), #FF5C00 100%);
+  z-index: -1;
+  transition: opacity 1s ease;
+  opacity: 1;
+}
+
+.navbar.scrolled::before {
+  opacity: 0;
+}
+
+.navbar.scrolled {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.navbar .logo {
+  font-size: clamp(1.2rem, 2vw, 1.5rem);
+  font-weight: bold;
+  transition: transform 0.3s ease;
+}
+
+.navbar .logo:hover {
+  transform: translate(20px);
+}
+
+.navbar nav a {
+  color: white;
+  text-decoration: none;
+  margin-left: clamp(0.5rem, 1vw, -3rem);
+  font-weight: 500;
+  font-size: clamp(1rem, 1vw, 1rem);
+  transition: color 0.3s;
+}
+
+.navbar nav a:hover {
+  color: #ddd;
+}
+
+@media (max-width: 400px) {
+  .navbar nav a {
+    font-size: 0.1;
+  }
+}
+
+/* --- Content Wrapper & Nav Button (from index.html & catalogue.html) --- */
+.content {
+  max-width: 1100px;
+  margin: auto;
+}
+
+.nav-button {
+  color: #ffa26e;
+  text-decoration: none;
+  border-radius: 4px;
+  font-weight: bold;
+  transition: color 0.3s ease;
+  /* Consolidating padding/hover for nav-button */
+  padding: clamp(0.3rem, 0.5vw, 0.5rem) clamp(0.5rem, 1vw, 1rem);
+}
+
+.nav-button:hover {
+  color: #ff6767;
+}
+
+
+/* --- Project / Entry Page Styles (from index.html & data.html) --- */
+.project-title {
+  /* Adjusted font-size to max of both files (clamp(2rem, 5vw, 2.5rem)) */
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  color: #ff6767;
+  margin-bottom: 0.3em;
+  text-align: center;
+}
+
+.time {
+  color: #ff9444;
+  /* Adjusted margin/font-size to max of both files */
+  margin-bottom: clamp(1rem, 2vw, 1.5rem);
+  font-size: clamp(0.8rem, 1.5vw, 1rem);
+  text-align: center;
+}
+
+.project-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(0.5rem, 1vw, 1rem);
+  justify-content: center;
+}
+
+.project-image-container {
+  /* Adjusted max-width to max of both files (clamp(300px, 50vw, 600px)) */
+  max-width: clamp(300px, 50vw, 600px);
+  flex-shrink: 0;
+  position: relative;
+  width: 100%;
+}
+
+.project-image {
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.download-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background-color: #00000055;
+  color: white;
+  /* Adjusted padding to max of both files */
+  padding: clamp(4px, 0.5vw, 6px) clamp(6px, 1vw, 12px);
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  opacity: 0;
+  backdrop-filter: blur(5px);
+  transition: 0.3s ease;
+}
+
+.project-image-container:hover .download-button {
+  opacity: 1;
+}
+
+.project-description {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(0.5rem, 1vw, 1rem);
+  color: #ffa26e;
+  max-width: 900px;
+  margin: 0 auto;
+  /* Adjusted margin-top to max of both files */
+  margin-top: clamp(20px, 4vw, 40px);
+  /* Added from index.html */
+  font-size: clamp(0.85rem, 1.2vw, 1rem);
+}
+
+.project-description p {
+  max-width: 500px;
+}
+
+.project-description a {
+  color: #ffa26e;
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.project-description a:hover {
+  text-decoration: underline;
+  color: #ff6767;
+}
+
+.description-image {
+  width: 100%;
+  /* Adjusted max-width to max of both files (clamp(200px, 40vw, 300px)) */
+  max-width: clamp(200px, 40vw, 300px);
+  border-radius: 8px;
+  /* Adjusted margin-bottom to max of both files */
+  margin-bottom: clamp(0.5rem, 1vw, 1rem);
+  cursor: pointer;
+}
+
+.description-text {
+  line-height: 1.3;
+  margin-left: clamp(10px, 2vw, 20px);
+}
+
+.description-text ul {
+  line-height: 1.3;
+  /* Adjusted margin-left and margin-bottom to max of both files */
+  margin-left: clamp(30px, 5vw, 50px);
+  margin-bottom: clamp(10px, 2vw, 20px);
+}
+
+.description-text h1 {
+  color: #ffbb44;
+  /* Added from index.html */
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.description-text h3 {
+  color: #ffa776;
+  /* Added from index.html */
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+}
+
+.description-text b {
+  background-color: #ff000055;
+}
+
+/* --- Image Collages --- */
+.image-collage, .image-collage-2 {
+  display: grid;
+  /* Adjusted gap to max of both files */
+  gap: clamp(2px, 0.5vw, 5px);
+  /* Adjusted max-width to max of both files (clamp(200px, 50vw, 300px)) */
+  max-width: clamp(200px, 50vw, 300px);
+  margin-top: 20px;
+}
+
+.image-collage {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.image-collage-2 {
+  grid-template-columns: 1fr;
+  /* Adjusted margin-right to max of both files */
+  margin-right: clamp(20px, 5vw, 50px);
+  /* Added margin-top from data.html */
+  margin-top: 50px;
+}
+
+.image-collage .description-image {
+  object-fit: cover;
+  margin: 0;
+  /* Added margin-bottom from data.html */
+  margin-bottom: 15px;
+}
+
+.image-collage-2 .description-image {
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+/* --- Media Queries (min-width: 700px) --- */
+@media (min-width: 700px) {
+  .project-description {
+    flex-direction: row-reverse;
+    align-items: flex-start;
+  }
+  .description-image {
+    /* Adjusted margin-left and margin-top to max of both files */
+    margin-left: clamp(10px, 2vw, 1rem);
+    margin-top: clamp(10px, 2vw, 20px);
+  }
+  .description-text {
+    flex: 1;
+  }
+}
+
+/* --- Media Queries (max-width: 700px) --- */
+@media (max-width: 700px) {
+  .description-image,
+  .image-collage,
+  .image-collage-2 {
+    /* Adjusted max-width for image elements to max of both files */
+    max-width: clamp(200px, 80vw, 400px);
+    margin: 0 auto;
+  }
+  /* Added for image-collage from data.html for clarity */
+  .image-collage-2 {
+    max-width: clamp(200px, 80vw, 400px);
+    margin: 0 auto;
+  }
+}
+
+/* --- Home Page Specific Styles (from index.html) --- */
+#intro {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+#intro h1 {
+  font-size: clamp(2rem, 4vw, 2.5rem);
+  margin-bottom: 1rem;
+  color: #ff6767;
+}
+
+#intro p,
+#intro a {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  color: #ffa26e;
+}
+
+#article-box {
+  margin-top: 3rem;
+  border: 1px solid #ffffff33;
+  border-radius: 8px;
+  padding: clamp(1rem, 2vw, 2rem);
+  background: linear-gradient(to bottom, #9999 0%, #9997 10px, #9993 100px, #9992 100px, #9992 95%, #9995), linear-gradient(to right, #fff2 0%, #9003 10px, #9000 25%, #9000 75%, #9003);
+}
+
+/* --- About Page Specific Styles (from about.html) --- */
+h1 {
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  margin-bottom: clamp(1rem, 2vw, 2rem);
+  color: #ff6767;
+}
+
+h2 {
+  font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+  color: #ffbb44;
+  margin-bottom: clamp(0.3rem, 1vw, 0.5rem);
+}
+
+p {
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  max-width: clamp(350px, 50vw, 500px);
+  margin: 0 auto clamp(1rem, 2vw, 2rem);
+  color: #ffa26e;
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(1rem, 2vw, 2rem);
+  margin-top: clamp(1rem, 2vw, 2rem);
+  align-items: center;
+}
+
+.info-block {
+  flex: 1;
+  max-width: clamp(300px, 50vw, 700px);
+  padding: clamp(0.5rem, 1vw, 1rem);
+  border-bottom: 3px solid rgba(255, 255, 255, 0.2);
+}
+
+.info-block:last-child {
+  border-bottom: none;
+}
+
+@media (min-width: 1200px) {
+  .info-section {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: center;
+  }
+  .info-block {
+    border-bottom: none;
+    border-right: 3px solid rgba(255, 255, 255, 0.2);
+  }
+  .info-block:last-child {
+    border-right: none;
+  }
+}
+
+/* --- Catalogue Page Specific Styles (from catalogue.html) --- */
+.category-list {
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: left;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: clamp(1rem, 2vw, 2rem);
+}
+
+.category {
+  background: #330000;
+  border-radius: 10px;
+  padding: clamp(0.8rem, 2vw, 1rem);
+}
+
+.category h2 {
+  font-size: clamp(1.2rem, 2.5vw, 1.4rem);
+  font-weight: bold;
+  color: #FFD500;
+  margin-bottom: 1rem;
+}
+
+ul {
+  padding-left: 0;
+  list-style: none;
+}
+
+li {
+  margin-bottom: clamp(0.5rem, 1vw, 1rem);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.5rem, 1vw, 1rem);
+}
+
+.item img {
+  width: clamp(60px, 12vw, 100px);
+  height: clamp(40px, 8vw, 70px);
+  object-fit: cover;
+  border-radius: 5px;
+  flex-shrink: 0;
+}
+
+.item-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-text a {
+  color: #ffb;
+  font-weight: bold;
+  font-size: clamp(1rem, 1.5vw, 1.1rem);
+  text-decoration: none;
+}
+
+.item-text a:hover {
+  text-decoration: underline;
+}
+
+.item-text .desc {
+  font-size: clamp(0.8rem, 1vw, 0.95rem);
+  color: #ffcba4;
+}
+
+@media (max-width: 600px) {
+  .item img {
+    width: clamp(40px, 12vw, 60px);
+    height: clamp(30px, 8vw, 40px);
+  }
+}
+
+@media (min-width: 901px) {
+  .category-list {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
