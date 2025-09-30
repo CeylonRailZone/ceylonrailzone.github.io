@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>SLR Rail Fleet | Entry</title>
+  <title>Loading...</title>
   <style>
     * {
       margin: 0;
@@ -207,14 +207,14 @@
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: clamp(2px, 0.5vw, 5px);
-      max-width: clamp(150px, 50vw, 300px);
+      max-width: clamp(150px, 20vw, 300px);
     }
 
     .image-collage-2 {
       display: grid;
       grid-template-columns: 1fr;
       gap: clamp(2px, 0.5vw, 5px);
-      max-width: clamp(150px, 50vw, 300px);
+      max-width: clamp(150px, 20vw, 300px);
       margin-right: clamp(20px, 5vw, 50px);
       margin-top: 50px;
     }
@@ -222,7 +222,7 @@
     .image-collage .description-image {
       object-fit: cover;
       margin-top: 0px;
-      margin-bottom: 0px;
+      margin-bottom: 15px;
     }  
     .image-collage-2 .description-image {
       object-fit: cover;
@@ -255,64 +255,6 @@
       color: #ff6767;
     }
 
-    #lightbox {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      background: linear-gradient(to bottom, #9999 0%, #9997 1%, #9994 10%, #9992 10%, #9992 75%, #9995);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      flex-direction: column;
-      z-index: 9999;
-      text-align: center;
-      padding: clamp(0.5rem, 1vw, 1rem);
-      border-radius: 8px;
-      box-shadow: 0 0 30px rgba(155, 155, 155, 0.3);
-      overflow: hidden;
-    }
-
-    #lightbox img {
-      max-width: 80%;
-      max-height: 90vh;
-      border-radius: 8px;
-      box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
-      transition: transform 0.2s ease;
-    }
-
-    #lightbox-caption {
-      color: white;
-      margin-top: clamp(5px, 1vw, 1rem);
-      font-size: clamp(0.8rem, 1vw, 1rem);
-      max-width: 90%;
-    }
-
-    #lightbox-close {
-      position: absolute;
-      top: clamp(10px, 2vw, 20px);
-      right: clamp(15px, 3vw, 30px);
-      color: white;
-      font-size: clamp(1.5rem, 3vw, 2rem);
-      cursor: pointer;
-      z-index: 10000;
-      user-select: none;
-    }
-
-    @media (max-width: 700px) {
-      #lightbox {
-        width: 100vw;
-        max-height: 50vh;
-        top: 100%;
-        transform: translate(-50%, -100%);
-      }
-      #lightbox img {
-        max-height: 45vh;
-      }
-    }
-
     .nav-button {
       color: #ffa26e;
       padding: clamp(0.3rem, 0.5vw, 0.5rem) clamp(0.5rem, 1vw, 1rem);
@@ -325,7 +267,6 @@
     .nav-button:hover {
       color: #ff6767;
     }
-
   </style>
 </head>
 
@@ -343,12 +284,6 @@
 
   <main id="projectContent" class="content">Loading...</main>
 
-  <div id="lightbox">
-    <span id="lightbox-close">&times;</span>
-    <img id="lightbox-img" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" alt="Full Image" />
-    <div id="lightbox-caption"></div>
-  </div>
-
 <script>
   const navbar = document.querySelector('.navbar');
   const content = document.getElementById("projectContent");
@@ -360,8 +295,12 @@
   function loadProject(projectId) {
     if (!projectId) {
       content.innerHTML = "<h2 style='color:#ff6767; text-align:center'>No entry selected.</h2>";
+      document.title = "No Entry Selected";
       return;
     }
+
+    // Set temporary title
+    document.title = "Loading...";
 
     fetch(`entries/${projectId}.html`)
       .then(res => {
@@ -370,6 +309,14 @@
       })
       .then(html => {
         content.innerHTML = html;
+
+        // ✅ Change page title
+        const titleEl = content.querySelector("h1, h2"); 
+        if (titleEl) {
+          document.title = titleEl.textContent.trim();
+        } else {
+          document.title = "Entry";
+        }
 
         const prev = content.querySelector('[data-nav="prev"]');
         const next = content.querySelector('[data-nav="next"]');
@@ -407,6 +354,7 @@
       })
       .catch(err => {
         content.innerHTML = "<h2 style='color:#ff6767; text-align:center'>Entry not found or failed to load.</h2>";
+        document.title = "Entry Not Found";
         console.error(err);
       });
   }
@@ -422,91 +370,14 @@
   });
 
   // -----------------------------
-  // Lightbox with zoom + drag
+  // Open images in new tab
   // -----------------------------
-  const lightbox = document.getElementById('lightbox');
-  const lightboxImg = document.getElementById('lightbox-img');
-  const caption = document.getElementById('lightbox-caption');
-  let zoom = 1;
-  let translateX = 0, translateY = 0;
-  let isDragging = false, startX, startY;
-
   document.addEventListener('click', function (e) {
     const target = e.target;
     if (target.tagName === 'IMG' && (target.classList.contains('project-image') || target.classList.contains('description-image'))) {
-      if (/Mobi|Android/i.test(navigator.userAgent)) {
-        // Mobile → open image in new tab
-        window.open(target.src, "_blank");
-      } else {
-        // Desktop → open lightbox
-        lightboxImg.src = target.src;
-        lightboxImg.alt = target.alt;
-        caption.textContent = target.alt || '';
-        zoom = 1;
-        translateX = 0;
-        translateY = 0;
-        updateTransform();
-        lightbox.style.display = 'flex';
-      }
+      window.open(target.src, "_blank");
     }
-  });
-
-  document.getElementById('lightbox-close').addEventListener('click', () => {
-    lightbox.style.display = 'none';
-  });
-
-  lightbox.addEventListener('click', (e) => {
-    if (e.target.id === 'lightbox') {
-      e.target.style.display = 'none';
-    }
-  });
-
-  function updateTransform() {
-    lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${zoom})`;
-    lightboxImg.style.transition = "none"; // no easing for dragging
-  }
-
-// Zoom with scroll (desktop only)
-lightbox.addEventListener("wheel", (e) => {
-  e.preventDefault();
-
-  const oldZoom = zoom;
-
-  // Update zoom
-  if (e.deltaY < 0) {
-    zoom *= 1.1; // zoom in
-  } else {
-    zoom = Math.max(1, zoom / 1.1); // zoom out
-  }
-
-  // ✅ No need to modify translateX / translateY
-  // Panning stays exactly where it is
-  // Scaling is naturally anchored at the image center
-  updateTransform();
-});
-
-
-
-  // Dragging
-  lightboxImg.addEventListener("mousedown", (e) => {
-    isDragging = true;
-    startX = e.clientX - translateX;
-    startY = e.clientY - translateY;
-    e.preventDefault();
-  });
-
-  window.addEventListener("mousemove", (e) => {
-    if (!isDragging) return;
-    translateX = e.clientX - startX;
-    translateY = e.clientY - startY;
-    updateTransform();
-  });
-
-  window.addEventListener("mouseup", () => {
-    isDragging = false;
   });
 </script>
-
-
 </body>
 </html>
