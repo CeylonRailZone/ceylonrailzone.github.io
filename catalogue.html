@@ -74,7 +74,7 @@
         ">
   ◪
 </button>
-    <h1>Ceylon RailZone Article Catalogue</h1>
+    <h1>RailZone Catalogue</h1>
     <p>Below are the articles about Sri Lanka Railways. All photos are copyright material of ChipFlare Studios.</p>
 
     <section class="category-list" id="catalogue">
@@ -142,6 +142,35 @@
           container.appendChild(section);
         }
       });
+    
+    const imageCount = 4;
+    let currentImage = 1;
+    const bodyElement = document.body;
+    
+    // Preload images to prevent initial flash/jerk
+    for (let i = 1; i <= imageCount; i++) {
+        new Image().src = `images/banners/${i}.jpg`;
+    }
+
+    function changeBackground() {
+        // Construct the new background image URL
+        const newBackground = `url('images/banners/${currentImage}.jpg')`;
+        
+        // Apply the new background image
+        // The CSS transition will handle the fade effect
+        bodyElement.style.backgroundImage = newBackground;
+        
+        // Move to the next image for the next cycle
+        currentImage = currentImage % imageCount + 1;
+    }
+
+    // Set the initial background
+    changeBackground(); 
+
+    // Set an interval to change the background image every 5 seconds (5000ms)
+    // Adjust the timing as needed.
+    setInterval(changeBackground, 5000); 
+    // --- End New Background Fading Script --
   </script>
 </body>
 
