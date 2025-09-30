@@ -5,7 +5,42 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>About RailZone</title>
-<link rel="stylesheet" href="styles.css">
+<script>
+  // Helper functions for cookies
+  function setCookie(name, value, days) {
+    const d = new Date();
+    d.setTime(d.getTime() + (days*24*60*60*1000));
+    document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/";
+  }
+
+  function getCookie(name) {
+    const cookies = document.cookie.split(';');
+    for (let c of cookies) {
+      let [key, value] = c.trim().split('=');
+      if (key === name) return value;
+    }
+    return null;
+  }
+
+  // Load the correct CSS
+  function loadStyle() {
+    const styleChoice = getCookie('theme') || 'new'; // default 'new'
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = styleChoice === 'old' ? 'styles-old.css' : 'styles.css';
+    document.head.appendChild(link);
+  }
+
+  loadStyle();
+
+  // Function to toggle style
+  function toggleStyle() {
+    const currentTheme = getCookie('theme') || 'new';
+    const newTheme = currentTheme === 'old' ? 'new' : 'old';
+    setCookie('theme', newTheme, 30); // persist for 30 days
+    location.reload(); // reload page to apply new CSS
+  }
+</script>
 </head>
 
 <body>
@@ -21,6 +56,24 @@
   </header>
 
   <main>
+    
+<button onclick="toggleStyle()" 
+        style="
+          position: fixed;
+          bottom: 20px;
+          right: 20px;
+          padding: 8px 12px;
+          font-size: 12px;
+          border-radius: 8px;
+          border: none;
+          background-color: #882b00;
+          color: #ffffff;
+          cursor: pointer;
+          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+          z-index: 1000;
+        ">
+    ◪
+</button>
     <h1>Ceylon RailZone</h1>
 
     <div class="info-section">

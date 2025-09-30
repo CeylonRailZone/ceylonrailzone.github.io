@@ -7,7 +7,7 @@
 
 /* --- Body: responsive font scaling & base styles --- */
 body {
-  font-family: Arial;
+  font-family: Times New Roman;
   font-size: clamp(0.9rem, 1.2vw, 1.1rem);
   background-color: #330000;
   color: white;
@@ -42,7 +42,7 @@ a:hover {
   z-index: 1000;
   padding: clamp(0.5rem, 1vw, 0.5rem) clamp(1rem, 2vw, 1rem);
   box-shadow: 0 1px 20px rgba(34, 0, 0, 1);
-  background: linear-gradient(to bottom,#fff0 50%, #fff3);
+  background: linear-gradient(to bottom, #fff8 0%, #fff5 10%, #fff2 50%, #fff0 50%, #fff0 75%, #fff3);
 }
 
 .navbar::before {
@@ -52,7 +52,7 @@ a:hover {
   left: 0;
   right: 0;
   bottom: 0;
-  background:linear-gradient(to right, #D92121 0, #D92121 calc(100% - 220px), #FF5C00 calc(100% - 220px), #FF5C00 100%);
+  background: linear-gradient(to bottom, #fff8 0%, #fff5 10%, #fff2 50%, #fff0 50%, #fff0 75%, #fff3), linear-gradient(to right, #D92121 0, #D92121 calc(100% - 200px), #FF5C00 calc(100% - 200px), #FF5C00 100%);
   z-index: -1;
   transition: opacity 1s ease;
   opacity: 1;
@@ -333,7 +333,7 @@ a:hover {
   border: 1px solid #ffffff33;
   border-radius: 8px;
   padding: clamp(1rem, 2vw, 2rem);
-  background: linear-gradient(to right, #fff2 0%, #9003 10px, #9000 25%, #9000 75%, #9003);
+  background: linear-gradient(to bottom, #9999 0%, #9997 10px, #9993 100px, #9992 100px, #9992 95%, #9995), linear-gradient(to right, #fff2 0%, #9003 10px, #9000 25%, #9000 75%, #9003);
 }
 
 /* --- About Page Specific Styles (from about.html) --- */
