@@ -369,7 +369,6 @@ p {
   flex: 1;
   max-width: clamp(300px, 50vw, 700px);
   padding: clamp(0.5rem, 1vw, 1rem);
-  background: #00000044;
   border-radius: 10px;
 }
 
@@ -403,7 +402,6 @@ p {
 }
 
 .category {
-  background: #00000044;
   border-radius: 10px;
   padding: clamp(0.8rem, 2vw, 1rem);
 }
@@ -436,7 +434,16 @@ li {
   object-fit: cover;
   border-radius: 5px;
   flex-shrink: 0;
+  transition: filter 0.4s ease;
 }
+.item img:hover{
+  filter: brightness(1.4)
+}
+.item :hover{
+  color: white;
+}
+
+
 
 .item-text {
   display: flex;
