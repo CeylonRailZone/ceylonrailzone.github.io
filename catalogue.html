@@ -5,42 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Catalogue</title>
-<script>
-  // Helper functions for cookies
-  function setCookie(name, value, days) {
-    const d = new Date();
-    d.setTime(d.getTime() + (days*24*60*60*1000));
-    document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/";
-  }
-
-  function getCookie(name) {
-    const cookies = document.cookie.split(';');
-    for (let c of cookies) {
-      let [key, value] = c.trim().split('=');
-      if (key === name) return value;
-    }
-    return null;
-  }
-
-  // Load the correct CSS
-  function loadStyle() {
-    const styleChoice = getCookie('theme') || 'new'; // default 'new'
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = styleChoice === 'old' ? 'styles-old.css' : 'styles.css';
-    document.head.appendChild(link);
-  }
-
-  loadStyle();
-
-  // Function to toggle style
-  function toggleStyle() {
-    const currentTheme = getCookie('theme') || 'new';
-    const newTheme = currentTheme === 'old' ? 'new' : 'old';
-    setCookie('theme', newTheme, 30); // persist for 30 days
-    location.reload(); // reload page to apply new CSS
-  }
-</script>
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -50,30 +15,12 @@
     </div>
     <nav>
       <a href="index.html">Home</a>
-      <a href="catalogue.html">Catalogue</a>
+      <a href="catalogue.html"><u>Catalogue</u></a>
       <a href="about.html">About</a>
     </nav>
   </header>
 
   <main>
-    <button onclick="toggleStyle()" 
-        style="
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          padding: 8px 12px;
-          font-size: 12px;
-          border-radius: 8px;
-          border: none;
-          background-color: #882b00;
-          color: #ffffff;
-          cursor: pointer;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-          z-index: 1000;
-        ">
-      ◪
-    </button>
-
     <h1>RailZone Catalogue</h1>
     <p>Below are the articles about Sri Lanka Railways. All photos are copyright material of ChipFlare Studios.</p>
 
@@ -81,84 +28,91 @@
       </section>
   </main>
 
-  <script>
-    const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 10);
+<script>
+  // Navbar scroll effect
+  const navbar = document.querySelector('.navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  // Fetch catalogue data
+  fetch('catalogue.json')
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById('catalogue');
+
+      let globalIndex = 0; // for continuous fade-in across all categories
+
+      for (const category in data) {
+        // Create category section
+        const section = document.createElement('div');
+        section.className = 'category';
+
+        const heading = document.createElement('h2');
+        heading.textContent = category;
+        section.appendChild(heading);
+
+        const ul = document.createElement('ul');
+
+        data[category].forEach(item => {
+          const li = document.createElement('li');
+
+          const wrapper = document.createElement('div');
+          wrapper.className = 'item';
+
+          // Apply staggered fade-in
+          wrapper.style.opacity = '0';
+          wrapper.style.transform = 'translateY(20px)';
+          wrapper.style.animation = `fadeInUp 0.6s forwards`;
+          wrapper.style.animationDelay = `${globalIndex * 0.05}s`;
+          globalIndex++; // increase index for next item
+
+          // Image link
+          const imgLink = document.createElement('a');
+          imgLink.href = item.url;
+
+          const img = document.createElement('img');
+          img.src = item.image;
+          img.alt = item.name;
+
+          imgLink.appendChild(img);
+
+          // Text wrapper
+          const textWrapper = document.createElement('div');
+          textWrapper.className = 'item-text';
+
+          const link = document.createElement('a');
+          link.href = item.url;
+          link.textContent = item.name;
+
+          const desc = document.createElement('div');
+          desc.className = 'desc';
+          desc.textContent = item.description;
+
+          textWrapper.appendChild(link);
+          textWrapper.appendChild(desc);
+
+          wrapper.appendChild(imgLink);
+          wrapper.appendChild(textWrapper);
+
+          li.appendChild(wrapper);
+          ul.appendChild(li);
+        });
+
+        section.appendChild(ul);
+        container.appendChild(section);
+      }
     });
 
-    fetch('catalogue.json')
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById('catalogue');
-
-        for (const category in data) {
-          const section = document.createElement('div');
-          section.className = 'category';
-
-          const heading = document.createElement('h2');
-          heading.textContent = category;
-          section.appendChild(heading);
-
-          const ul = document.createElement('ul');
-
-          data[category].forEach(item => {
-            const li = document.createElement('li');
-            const wrapper = document.createElement('div');
-            wrapper.className = 'item';
-
-            // 🛠️ Use item.url directly for the link
-            const imgLink = document.createElement('a');
-            imgLink.href = item.url; // Use 'item.url' from the new JSON structure
-
-            const img = document.createElement('img');
-            img.src = item.image;
-            img.alt = item.name;
-
-            imgLink.appendChild(img);
-
-            const textWrapper = document.createElement('div');
-            textWrapper.className = 'item-text';
-
-            const link = document.createElement('a');
-            link.href = item.url; // Use 'item.url' from the new JSON structure
-            link.textContent = item.name;
-
-            const desc = document.createElement('div');
-            desc.className = 'desc';
-            desc.textContent = item.description;
-
-            textWrapper.appendChild(link);
-            textWrapper.appendChild(desc);
-
-            wrapper.appendChild(imgLink);
-            wrapper.appendChild(textWrapper);
-
-            li.appendChild(wrapper);
-            ul.appendChild(li);
-          });
-
-          section.appendChild(ul);
-          container.appendChild(section);
-        }
-      });
-    
-    const imageCount = 4;
-    let currentImage = 1;
-    const bodyElement = document.body;
-    
-    // Preload images
-    for (let i = 1; i <= imageCount; i++) {
-        new Image().src = `images/banners/${i}.jpg`;
+  // CSS keyframes injection via JS (if not in CSS file)
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
     }
+  `;
+  document.head.appendChild(style);
+</script>
 
-    function changeBackground() {
-        bodyElement.style.backgroundImage = `url('images/banners/${currentImage}.jpg')`;
-        currentImage = currentImage % imageCount + 1;
-    }
-
-    changeBackground(); 
-    setInterval(changeBackground, 5000); 
-  </script>
 </body>
 </html>

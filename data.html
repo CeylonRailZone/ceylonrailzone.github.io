@@ -4,41 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Loading...</title>
+  <link rel="stylesheet" href="styles.css">
 <script>
-  // --------------------------
-  // Cookie helpers for theme
-  // --------------------------
-  function setCookie(name, value, days) {
-    const d = new Date();
-    d.setTime(d.getTime() + (days*24*60*60*1000));
-    document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/";
-  }
-
-  function getCookie(name) {
-    const cookies = document.cookie.split(';');
-    for (let c of cookies) {
-      let [key, value] = c.trim().split('=');
-      if (key === name) return value;
-    }
-    return null;
-  }
-
-  function loadStyle() {
-    const styleChoice = getCookie('theme') || 'new';
-    const link = document.createElement('link');
-    link.rel = 'stylesheet';
-    link.href = styleChoice === 'old' ? 'styles-old.css' : 'styles.css';
-    document.head.appendChild(link);
-  }
-
-  loadStyle();
-
-  function toggleStyle() {
-    const currentTheme = getCookie('theme') || 'new';
-    const newTheme = currentTheme === 'old' ? 'new' : 'old';
-    setCookie('theme', newTheme, 30);
-    location.reload();
-  }
 
   // --------------------------
   // URL helpers
@@ -48,11 +15,11 @@
     return params.get("id");
   }
 
-  function setIdInURL(id) {
-    const params = new URLSearchParams(window.location.search);
-    params.set("id", id);
-    history.pushState({}, "", "?" + params.toString());
-  }
+  // function setIdInURL(id) { // REMOVED: No longer manipulating history state
+  //   const params = new URLSearchParams(window.location.search);
+  //   params.set("id", id);
+  //   history.pushState({}, "", "?" + params.toString());
+  // }
 </script>
   <style>
     body { text-align: left; transition: background 0s ease-in-out; }
@@ -62,7 +29,7 @@
     .image-collage { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(2px, 0.5vw, 5px); max-width: clamp(150px, 20vw, 300px); margin-top: 0px; }
     .image-collage-2 { display: grid; grid-template-columns: 1fr; gap: clamp(2px, 0.5vw, 5px); max-width: clamp(150px, 20vw, 300px); margin-top: 50px; }
     .image-collage .description-image,
-    .image-collage-2 .description-image { object-fit: cover; margin-top: 0px; }  
+    .image-collage-2 .description-image { object-fit: cover; margin-top: 0px; } 
     @media (max-width: 700px) {
       .description-image { max-width: clamp(200px, 80vw, 400px); margin: 0 auto; }
       .image-collage, .image-collage-2 { max-width: clamp(200px, 80vw, 400px); margin: 0 auto; }
@@ -85,6 +52,17 @@
   <main id="projectContent" class="content">Loading...</main>
 
 <script>
+  // --------------------------
+  // URL helpers
+  // --------------------------
+  function getIdFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id");
+  }
+
+  // --------------------------
+  // Navbar scroll effect
+  // --------------------------
   const navbar = document.querySelector('.navbar');
   const content = document.getElementById("projectContent");
 
@@ -92,6 +70,9 @@
     navbar.classList.toggle('scrolled', window.scrollY > 10);
   });
 
+  // --------------------------
+  // Load project content
+  // --------------------------
   function loadProject(projectId) {
     if (!projectId) {
       content.innerHTML = "<h2 style='color:#ff6767; text-align:center'>No entry selected.</h2>";
@@ -109,45 +90,39 @@
       .then(html => {
         content.innerHTML = html;
 
-        // Change page title
+        // Set page title
         const titleEl = content.querySelector("h1, h2"); 
-        if (titleEl) {
-          document.title = titleEl.textContent.trim();
-        } else {
-          document.title = "Entry";
-        }
+        document.title = titleEl ? titleEl.textContent.trim() : "Entry";
 
+        // Navigation buttons
         const prev = content.querySelector('[data-nav="prev"]');
         const next = content.querySelector('[data-nav="next"]');
         const timeElement = content.querySelector('.time');
 
-        if (!timeElement) return;
+        if (timeElement && (prev || next)) {
+          const navContainer = document.createElement('div');
+          navContainer.style.textAlign = 'center';
+          navContainer.style.margin = '1.5rem 0 2rem';
+          navContainer.style.display = 'flex';
+          navContainer.style.justifyContent = 'center';
+          navContainer.style.gap = '20px';
 
-        const navContainer = document.createElement('div');
-        navContainer.style.textAlign = 'center';
-        navContainer.style.marginTop = '1.5rem';
-        navContainer.style.marginBottom = '2rem';
-        navContainer.style.display = 'flex';
-        navContainer.style.justifyContent = 'center';
-        navContainer.style.gap = '20px';
+          if (prev) {
+            const prevBtn = document.createElement('a');
+            prevBtn.href = `?id=${prev.dataset.target}`; 
+            prevBtn.textContent = '◀ Previous';
+            prevBtn.className = 'nav-button';
+            navContainer.appendChild(prevBtn);
+          }
 
-        if (prev) {
-          const prevBtn = document.createElement('a');
-          prevBtn.href = `?id=${prev.dataset.target}`;
-          prevBtn.textContent = '◀ Previous';
-          prevBtn.className = 'nav-button';
-          navContainer.appendChild(prevBtn);
-        }
+          if (next) {
+            const nextBtn = document.createElement('a');
+            nextBtn.href = `?id=${next.dataset.target}`;
+            nextBtn.textContent = 'Next ▶';
+            nextBtn.className = 'nav-button';
+            navContainer.appendChild(nextBtn);
+          }
 
-        if (next) {
-          const nextBtn = document.createElement('a');
-          nextBtn.href = `?id=${next.dataset.target}`;
-          nextBtn.textContent = 'Next ▶';
-          nextBtn.className = 'nav-button';
-          navContainer.appendChild(nextBtn);
-        }
-
-        if (prev || next) {
           timeElement.insertAdjacentElement('afterend', navContainer);
         }
       })
@@ -161,38 +136,44 @@
   // Initial load
   loadProject(getIdFromURL());
 
-  // React to back/forward navigation
-  window.addEventListener('popstate', () => {
-    loadProject(getIdFromURL());
-  });
+  // --------------------------
+document.addEventListener('click', function (e) {
+  const target = e.target;
+  if (target.tagName === 'IMG' && (target.classList.contains('project-image') || target.classList.contains('description-image'))) {
+    
+    const clone = target.cloneNode();
+    const rect = target.getBoundingClientRect();
 
-  // -----------------------------
-  // Open images in new tab
-  // -----------------------------
-  document.addEventListener('click', function (e) {
-    const target = e.target;
-    if (target.tagName === 'IMG' && (target.classList.contains('project-image') || target.classList.contains('description-image'))) {
+    // Set initial position
+    clone.style.position = 'fixed';
+    clone.style.top = rect.top + 'px';
+    clone.style.left = rect.left + 'px';
+    clone.style.width = rect.width + 'px';
+    clone.style.height = rect.height + 'px';
+    clone.style.transition = 'all 0.25s ease';
+    clone.style.zIndex = 9999;
+    clone.style.objectFit = 'cover';
+    clone.style.borderRadius = window.getComputedStyle(target).borderRadius;
+
+    document.body.appendChild(clone);
+
+    // Force reflow
+    clone.getBoundingClientRect();
+
+    // Animate: zoom in + fade out
+    clone.style.transform = 'scale(2)'; // make it 2x bigger
+    clone.style.opacity = '0'; // fade away
+
+    clone.addEventListener('transitionend', () => {
       window.open(target.src, "_blank");
-    }
-  });
+      clone.remove();
+    }, { once: true });
+  }
+});
+
+
+
 </script>
 
-<button onclick="toggleStyle()" 
-        style="
-          position: fixed;
-          bottom: 20px;
-          right: 20px;
-          padding: 8px 12px;
-          font-size: 12px;
-          border-radius: 8px;
-          border: none;
-          background-color: #882b00;
-          color: #ffffff;
-          cursor: pointer;
-          box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-          z-index: 1000;
-        ">
-  ◪
-</button>
 </body>
 </html>

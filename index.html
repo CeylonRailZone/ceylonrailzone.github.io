@@ -5,68 +5,59 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="google-site-verification" content="QRBMYjU0v6J_gGg8ythm3KAWXIhDhIdYtu1myKZDDH0" />
   <title>Ceylon RailZone</title>
-  <script>
-    // Helper functions for cookies
-    function setCookie(name, value, days) {
-      const d = new Date();
-      d.setTime(d.getTime() + (days*24*60*60*1000));
-      document.cookie = name + "=" + value + ";expires=" + d.toUTCString() + ";path=/";
-    }
-
-    function getCookie(name) {
-      const cookies = document.cookie.split(';');
-      for (let c of cookies) {
-        let [key, value] = c.trim().split('=');
-        if (key === name) return value;
-      }
-      return null;
-    }
-
-    // Load the correct CSS
-    function loadStyle() {
-      const styleChoice = getCookie('theme') || 'new'; // default 'new'
-      const link = document.createElement('link');
-      link.rel = 'stylesheet';
-      link.href = styleChoice === 'old' ? 'styles-old.css' : 'styles.css';
-      document.head.appendChild(link);
-    }
-
-    loadStyle();
-
-    // Function to toggle style
-    function toggleStyle() {
-      const currentTheme = getCookie('theme') || 'new';
-      const newTheme = currentTheme === 'old' ? 'new' : 'old';
-      setCookie('theme', newTheme, 30); // persist for 30 days
-      location.reload(); // reload page to apply new CSS
-    }
-  </script>
+  <link rel="stylesheet" href="styles.css">
   <style>
-    /* Style toggle button */
-    .style-toggle-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      padding: 8px 12px;
-      font-size: 12px;
-      border-radius: 8px;
-      border: none;
-      background-color: #882b00;
-      color: #ffffff;
-      cursor: pointer;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-      z-index: 1000;
+    /* CSS for the new background layer and clear content */
+    body {
+        background-image: none !important; /* Remove background from body to prevent conflicts */
+        margin: 0;
+        padding: 0;
+        position: relative; /* Ensure content is positioned relative to the viewport */
+    }
+
+    /* Styles for the background layer */
+    #background-blur-layer {
+      position: fixed; /* Fixed position to cover the entire viewport */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2; /* Ensure it is behind everything */
+      background-size: cover;
+      background-position: center;
+      transition: background-image 1s ease-in-out;
+      filter: blur(10px); /* Apply the blur here */
+    }
+
+    /* Styles for the overlay */
+    #background-blur-layer::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #44000088; /* Dark gray overlay */
+      z-index: -1; /* Place overlay on top of the blurred image */
+    }
+
+    /* Ensure content is rendered above the blurred background */
+    .navbar, .content, main {
+        position: relative;
+        z-index: 1;
     }
   </style>
 </head>
 <body>
+
+  <div id="background-blur-layer"></div>
 
   <header class="navbar">
     <div class="logo">
       <a href="index.html"><img src="../images/logo-wide-1.png" alt="Logo" style="height: 40px;"></a>
     </div>
     <nav>
-      <a href="index.html">Home</a>
+      <a href="index.html"><u>Home</u></a>
       <a href="catalogue.html">Catalogue</a>
       <a href="about.html">About</a>
     </nav>
@@ -77,28 +68,27 @@
       <h1>Ceylon RailZone</h1>
       <p>This is not an official website by Sri Lanka Railways. Rather, this website was made to archive images of SLR. <a href="about.html" style="color:#ffd700;">Learn more.</a></p>
     </div>
-    
-    <button onclick="toggleStyle()" class="style-toggle-btn">◪</button>
-  </main>
+    </main>
 
 <script>
-    const navbar = document.querySelector('.navbar');
+    const navbar = document.querySelector('.navbar');
 
-    window.addEventListener('scroll', () => {
-      navbar.classList.toggle('scrolled', window.scrollY > 10);
-    });
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 10);
+    });
 
-    document.addEventListener('click', e => {
-      const target = e.target;
-      if (target.tagName === 'IMG' && (target.classList.contains('project-image') || target.classList.contains('description-image'))) {
-        window.open(target.src, '_blank');
-      }
-    });
+    document.addEventListener('click', e => {
+      const target = e.target;
+      if (target.tagName === 'IMG' && (target.classList.contains('project-image') || target.classList.contains('description-image'))) {
+        window.open(target.src, '_blank');
+      }
+    });
     
-    // --- New Background Fading Script ---
-    const imageCount = 4;
+    // --- Background Fading Script MODIFIED ---
+    const imageCount = 9;
     let currentImage = 1;
-    const bodyElement = document.body;
+    // Target the new layer instead of the body
+    const backgroundLayer = document.getElementById('background-blur-layer');
     
     // Preload images to prevent initial flash/jerk
     for (let i = 1; i <= imageCount; i++) {
@@ -109,9 +99,8 @@
         // Construct the new background image URL
         const newBackground = `url('images/banners/${currentImage}.jpg')`;
         
-        // Apply the new background image
-        // The CSS transition will handle the fade effect
-        bodyElement.style.backgroundImage = newBackground;
+        // Apply the new background image to the layer
+        backgroundLayer.style.backgroundImage = newBackground;
         
         // Move to the next image for the next cycle
         currentImage = currentImage % imageCount + 1;
@@ -121,11 +110,9 @@
     changeBackground(); 
 
     // Set an interval to change the background image every 5 seconds (5000ms)
-    // Adjust the timing as needed.
-    setInterval(changeBackground, 5000); 
-    // --- End New Background Fading Script ---
-  </script>
+    setInterval(changeBackground, 10000); 
+    // --- End Background Fading Script ---
+  </script>
 
 </body>
 </html>
-
