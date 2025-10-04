@@ -4,32 +4,38 @@
     <!-- Core Navigation Pages -->
     <url>
         <loc>https://ceylonrailzone.github.io/index.html</loc>
+        <lastmod>2025-10-04</lastmod>
+        <changefreq>daily</changefreq>
         <priority>1.0</priority>
     </url>
     <url>
         <loc>https://ceylonrailzone.github.io/catalogue.html</loc>
+        <lastmod>2025-10-04</lastmod>
+        <changefreq>weekly</changefreq>
         <priority>0.9</priority>
     </url>
     <url>
         <loc>https://ceylonrailzone.github.io/about.html</loc>
+        <lastmod>2025-10-04</lastmod>
+        <changefreq>monthly</changefreq>
         <priority>0.5</priority>
     </url>
 
-    <!-- Catalogue Entries (All links must be absolute) -->
-    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-m6</loc><priority>0.7</priority></url>
-    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-m2</loc><priority>0.7</priority></url>
-    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-s14</loc><priority>0.7</priority></url>
-    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-s13</loc><priority>0.7</priority></url>
-    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-s12</loc><priority>0.7</priority></url>
-    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-s11</loc><priority>0.7</priority></url>
-    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-s10</loc><priority>0.7</priority></url>
-    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-s9</loc><priority>0.7</priority></url>
-    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-s8</loc><priority>0.7</priority></url>
-    <url><loc>https://ceylonrailzone.github.io/data.html?id=udarata-manike</loc><priority>0.7</priority></url>
-    <url><loc>https://ceylonrailzone.github.io/data.html?id=podi-manike</loc><priority>0.7</priority></url>
-    <url><loc>https://ceylonrailzone.github.io/data.html?id=ella-odyssey</loc><priority>0.7</priority></url>
-    <url><loc>https://ceylonrailzone.github.io/data.html?id=uttara-devi</loc><priority>0.7</priority></url>
-    <url><loc>https://ceylonrailzone.github.io/data.html?id=yal-devi</loc><priority>0.7</priority></url>
-    <url><loc>https://ceylonrailzone.github.io/data.html?id=denuwara-manike</loc><priority>0.7</priority></url>
+    <!-- Catalogue Entries -->
+    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-m6</loc><lastmod>2025-10-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-m2</loc><lastmod>2025-10-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-s14</loc><lastmod>2025-10-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-s13</loc><lastmod>2025-10-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-s12</loc><lastmod>2025-10-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-s11</loc><lastmod>2025-10-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-s10</loc><lastmod>2025-10-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-s9</loc><lastmod>2025-10-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://ceylonrailzone.github.io/data.html?id=class-s8</loc><lastmod>2025-10-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://ceylonrailzone.github.io/data.html?id=udarata-manike</loc><lastmod>2025-10-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://ceylonrailzone.github.io/data.html?id=podi-manike</loc><lastmod>2025-10-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://ceylonrailzone.github.io/data.html?id=ella-odyssey</loc><lastmod>2025-10-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://ceylonrailzone.github.io/data.html?id=uttara-devi</loc><lastmod>2025-10-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://ceylonrailzone.github.io/data.html?id=yal-devi</loc><lastmod>2025-10-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+    <url><loc>https://ceylonrailzone.github.io/data.html?id=denuwara-manike</loc><lastmod>2025-10-04</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
 
 </urlset>
