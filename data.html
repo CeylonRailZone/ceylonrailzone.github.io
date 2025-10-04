@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Loading...</title>
 <script>
-  // Helper functions for cookies
+  // --------------------------
+  // Cookie helpers for theme
+  // --------------------------
   function setCookie(name, value, days) {
     const d = new Date();
     d.setTime(d.getTime() + (days*24*60*60*1000));
@@ -21,9 +23,8 @@
     return null;
   }
 
-  // Load the correct CSS
   function loadStyle() {
-    const styleChoice = getCookie('theme') || 'new'; // default 'new'
+    const styleChoice = getCookie('theme') || 'new';
     const link = document.createElement('link');
     link.rel = 'stylesheet';
     link.href = styleChoice === 'old' ? 'styles-old.css' : 'styles.css';
@@ -32,77 +33,39 @@
 
   loadStyle();
 
-  // Function to toggle style
   function toggleStyle() {
     const currentTheme = getCookie('theme') || 'new';
     const newTheme = currentTheme === 'old' ? 'new' : 'old';
-    setCookie('theme', newTheme, 30); // persist for 30 days
-    location.reload(); // reload page to apply new CSS
+    setCookie('theme', newTheme, 30);
+    location.reload();
+  }
+
+  // --------------------------
+  // URL helpers
+  // --------------------------
+  function getIdFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id");
+  }
+
+  function setIdInURL(id) {
+    const params = new URLSearchParams(window.location.search);
+    params.set("id", id);
+    history.pushState({}, "", "?" + params.toString());
   }
 </script>
   <style>
-
-    body {
-      text-align: left;
-      transition: background 0s ease-in-out;
-    }
-
-
-    .description-image {
-      max-width: clamp(150px, 20vw, 300px);
-    }
-
-    .description-text ul {
-      line-height: 1.3;
-      margin-left: clamp(30px, 5vw, 50px);
-      margin-bottom: clamp(10px, 2vw, 20px);
-    }
-    .description-text li {
-      line-height: 1.3;
-      margin-left: clamp(30px, 5vw, 50px);
-      margin-bottom:0px
-    }
-
-
-
-    .image-collage {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: clamp(2px, 0.5vw, 5px);
-      max-width: clamp(150px, 20vw, 300px);
-      margin-top: 0px;
-
-    }
-
-    .image-collage-2 {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: clamp(2px, 0.5vw, 5px);
-      max-width: clamp(150px, 20vw, 300px);
-
-      margin-top: 50px;
-    }
-
-    .image-collage .description-image {
-      object-fit: cover;
-      margin-top: 0px;
-    }  
-    .image-collage-2 .description-image {
-      object-fit: cover;
-      margin-top: 0px;
-    }  
-
+    body { text-align: left; transition: background 0s ease-in-out; }
+    .description-image { max-width: clamp(150px, 20vw, 300px); }
+    .description-text ul { line-height: 1.3; margin-left: clamp(30px, 5vw, 50px); margin-bottom: clamp(10px, 2vw, 20px); }
+    .description-text li { line-height: 1.3; margin-left: clamp(30px, 5vw, 50px); margin-bottom:0px }
+    .image-collage { display: grid; grid-template-columns: repeat(2, 1fr); gap: clamp(2px, 0.5vw, 5px); max-width: clamp(150px, 20vw, 300px); margin-top: 0px; }
+    .image-collage-2 { display: grid; grid-template-columns: 1fr; gap: clamp(2px, 0.5vw, 5px); max-width: clamp(150px, 20vw, 300px); margin-top: 50px; }
+    .image-collage .description-image,
+    .image-collage-2 .description-image { object-fit: cover; margin-top: 0px; }  
     @media (max-width: 700px) {
-      .description-image {
-        max-width: clamp(200px, 80vw, 400px);
-        margin: 0 auto;
-      }
-
-      .image-collage,
-      .image-collage-2 {
-        max-width: clamp(200px, 80vw, 400px);
-        margin: 0 auto;
-      }
+      .description-image { max-width: clamp(200px, 80vw, 400px); margin: 0 auto; }
+      .image-collage, .image-collage-2 { max-width: clamp(200px, 80vw, 400px); margin: 0 auto; }
     }
   </style>
 </head>
@@ -136,7 +99,6 @@
       return;
     }
 
-    // Set temporary title
     document.title = "Loading...";
 
     fetch(`entries/${projectId}.html`)
@@ -147,7 +109,7 @@
       .then(html => {
         content.innerHTML = html;
 
-        // ✅ Change page title
+        // Change page title
         const titleEl = content.querySelector("h1, h2"); 
         if (titleEl) {
           document.title = titleEl.textContent.trim();
@@ -171,7 +133,7 @@
 
         if (prev) {
           const prevBtn = document.createElement('a');
-          prevBtn.href = `data.html#${prev.dataset.target}`;
+          prevBtn.href = `?id=${prev.dataset.target}`;
           prevBtn.textContent = '◀ Previous';
           prevBtn.className = 'nav-button';
           navContainer.appendChild(prevBtn);
@@ -179,7 +141,7 @@
 
         if (next) {
           const nextBtn = document.createElement('a');
-          nextBtn.href = `data.html#${next.dataset.target}`;
+          nextBtn.href = `?id=${next.dataset.target}`;
           nextBtn.textContent = 'Next ▶';
           nextBtn.className = 'nav-button';
           navContainer.appendChild(nextBtn);
@@ -197,13 +159,11 @@
   }
 
   // Initial load
-  const initialId = location.hash.slice(1);
-  loadProject(initialId);
+  loadProject(getIdFromURL());
 
-  // Reload when hash changes
-  window.addEventListener('hashchange', () => {
-    const newId = location.hash.slice(1);
-    loadProject(newId);
+  // React to back/forward navigation
+  window.addEventListener('popstate', () => {
+    loadProject(getIdFromURL());
   });
 
   // -----------------------------
@@ -216,6 +176,7 @@
     }
   });
 </script>
+
 <button onclick="toggleStyle()" 
         style="
           position: fixed;

@@ -41,7 +41,6 @@
     location.reload(); // reload page to apply new CSS
   }
 </script>
-  
 </head>
 
 <body>
@@ -57,7 +56,7 @@
   </header>
 
   <main>
-<button onclick="toggleStyle()" 
+    <button onclick="toggleStyle()" 
         style="
           position: fixed;
           bottom: 20px;
@@ -72,14 +71,14 @@
           box-shadow: 0 2px 6px rgba(0,0,0,0.3);
           z-index: 1000;
         ">
-  ◪
-</button>
+      ◪
+    </button>
+
     <h1>RailZone Catalogue</h1>
     <p>Below are the articles about Sri Lanka Railways. All photos are copyright material of ChipFlare Studios.</p>
 
     <section class="category-list" id="catalogue">
-      <!-- Content gets populated here -->
-    </section>
+      </section>
   </main>
 
   <script>
@@ -108,8 +107,9 @@
             const wrapper = document.createElement('div');
             wrapper.className = 'item';
 
+            // 🛠️ Use item.url directly for the link
             const imgLink = document.createElement('a');
-            imgLink.href = `data.html#${item.id}`;
+            imgLink.href = item.url; // Use 'item.url' from the new JSON structure
 
             const img = document.createElement('img');
             img.src = item.image;
@@ -121,7 +121,7 @@
             textWrapper.className = 'item-text';
 
             const link = document.createElement('a');
-            link.href = `data.html#${item.id}`;
+            link.href = item.url; // Use 'item.url' from the new JSON structure
             link.textContent = item.name;
 
             const desc = document.createElement('div');
@@ -147,31 +147,18 @@
     let currentImage = 1;
     const bodyElement = document.body;
     
-    // Preload images to prevent initial flash/jerk
+    // Preload images
     for (let i = 1; i <= imageCount; i++) {
         new Image().src = `images/banners/${i}.jpg`;
     }
 
     function changeBackground() {
-        // Construct the new background image URL
-        const newBackground = `url('images/banners/${currentImage}.jpg')`;
-        
-        // Apply the new background image
-        // The CSS transition will handle the fade effect
-        bodyElement.style.backgroundImage = newBackground;
-        
-        // Move to the next image for the next cycle
+        bodyElement.style.backgroundImage = `url('images/banners/${currentImage}.jpg')`;
         currentImage = currentImage % imageCount + 1;
     }
 
-    // Set the initial background
     changeBackground(); 
-
-    // Set an interval to change the background image every 5 seconds (5000ms)
-    // Adjust the timing as needed.
     setInterval(changeBackground, 5000); 
-    // --- End New Background Fading Script --
   </script>
 </body>
-
 </html>

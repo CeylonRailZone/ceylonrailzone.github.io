@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /entries/
+Sitemap: https://www.ceylonrailzone.github.io/sitemap.xml
