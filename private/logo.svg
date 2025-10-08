@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="210mm"
+   height="297mm"
+   viewBox="0 0 210 297"
+   version="1.1"
+   id="svg1"
+   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
+   sodipodi:docname="logo.svg"
+   inkscape:export-filename="..\images\logo-wide-1.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview1"
+     pagecolor="#323232"
+     bordercolor="#000000"
+     borderopacity="0.25"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     inkscape:zoom="2.1543544"
+     inkscape:cx="187.063"
+     inkscape:cy="77.749512"
+     inkscape:window-width="1920"
+     inkscape:window-height="1057"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs1" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <text
+       style="font-size:22.5778px;line-height:0.9;font-family:'Tw Cen MT';-inkscape-font-specification:'Tw Cen MT';text-align:center;letter-spacing:-0.494771px;word-spacing:0px;fill:#ffffff;stroke:#000000;stroke-width:0"
+       x="17.322309"
+       y="22.431578"
+       id="text16">R</text>
+    <text
+       style="font-size:22.5778px;line-height:0.9;font-family:'Tw Cen MT';-inkscape-font-specification:'Tw Cen MT';text-align:center;letter-spacing:-0.494771px;word-spacing:0px;fill:#ffffff;stroke:#000000;stroke-width:0"
+       x="26.076944"
+       y="22.431578"
+       id="text15">a</text>
+    <text
+       style="font-size:22.5778px;line-height:0.9;font-family:'Tw Cen MT';-inkscape-font-specification:'Tw Cen MT';text-align:center;letter-spacing:-0.494771px;word-spacing:0px;fill:#ffffff;stroke:#000000;stroke-width:0"
+       x="37.058487"
+       y="22.431578"
+       id="text14">i</text>
+    <text
+       style="font-size:22.5778px;line-height:0.9;font-family:'Tw Cen MT';-inkscape-font-specification:'Tw Cen MT';text-align:center;letter-spacing:-0.494771px;word-spacing:0px;fill:#ffffff;stroke:#000000;stroke-width:0"
+       x="40.455299"
+       y="22.431578"
+       id="text13">l</text>
+    <path
+       d="m 48.614614,8.3865981 h 6.835079 L 48.746908,20.535395 h 34.08716 v 1.896183 H 45.638051 l 6.658687,-12.126749 h -3.682124 z"
+       id="text12"
+       style="font-size:22.5778px;line-height:0.9;font-family:'Tw Cen MT';-inkscape-font-specification:'Tw Cen MT';text-align:center;letter-spacing:-0.494771px;word-spacing:0px;fill:#ffffff;stroke:#000000;stroke-width:0"
+       aria-label="Z"
+       sodipodi:nodetypes="ccccccccc" />
+    <text
+       style="font-size:22.5778px;line-height:0.9;font-family:'Tw Cen MT';-inkscape-font-specification:'Tw Cen MT';text-align:center;letter-spacing:-0.494771px;word-spacing:0px;fill:#ffffff;stroke:#000000;stroke-width:0"
+       x="53.058739"
+       y="19.256575"
+       id="text11">o</text>
+    <text
+       style="font-size:24.3682px;line-height:0.9;font-family:'Tw Cen MT';-inkscape-font-specification:'Tw Cen MT';text-align:center;letter-spacing:-0.534006px;word-spacing:0px;fill:#ffffff;stroke:#000000;stroke-width:0"
+       x="68.345169"
+       y="19.269945"
+       id="text10"
+       transform="scale(0.92652785,1.0792984)">n</text>
+    <text
+       style="font-size:22.5778px;line-height:0.9;font-family:'Tw Cen MT';-inkscape-font-specification:'Tw Cen MT';text-align:center;letter-spacing:-0.494771px;word-spacing:0px;fill:#ffffff;stroke:#000000;stroke-width:0"
+       x="72.188576"
+       y="19.256575"
+       id="text9">e</text>
+    <rect
+       style="fill:#ffffff;fill-opacity:0.247458;stroke:#ffffff;stroke-width:0.2;stroke-dasharray:none;stroke-opacity:0.36440679"
+       id="rect18"
+       width="72.582649"
+       height="21.00107"
+       x="14.61478"
+       y="5.0353446"
+       ry="4.2002144" />
+  </g>
+</svg>

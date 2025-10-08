@@ -10,8 +10,6 @@
     /* CSS for the new background layer and clear content */
     body {
         background-image: none !important; /* Remove background from body to prevent conflicts */
-        margin: 0;
-        padding: 0;
         position: relative; /* Ensure content is positioned relative to the viewport */
     }
 
@@ -41,11 +39,7 @@
       z-index: -1; /* Place overlay on top of the blurred image */
     }
 
-    /* Ensure content is rendered above the blurred background */
-    .navbar, .content, main {
-        position: relative;
-        z-index: 1;
-    }
+    
   </style>
 </head>
 <body>
@@ -66,7 +60,7 @@
   <main class="content">
     <div id="intro">
       <h1>Ceylon RailZone</h1>
-      <p>This is not an official website by Sri Lanka Railways. Rather, this website was made to archive images of SLR. <a href="about.html" style="color:#ffd700;">Learn more.</a></p>
+      <p style="padding:15px; ">This is not an official website by Sri Lanka Railways. Rather, this website was made to archive images of SLR. <a href="about.html" style="color:#ffd700;">Learn more.</a></p>
     </div>
     </main>
 
