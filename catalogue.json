@@ -19,5 +19,10 @@
     { "name": "Uttara Devi", "image": "images/unavailable.png", "description": "Colombo-Jaffna-Kankasanturai Intercity Express", "url": "data.html?id=uttara-devi" },
     { "name": "Yal Devi", "image": "images/class-m11-yal-devi.jpg", "description": "Mt.Lavinia-Colombo-Kankasanturai Intercity Express", "url": "data.html?id=yal-devi" },
     { "name": "Denuwara Manike", "image": "images/class-s14-pattipola.jpg", "description": "Not Operational", "url": "data.html?id=denuwara-manike" }
+  ],
+  "Railway lines": [
+    { "name": "Main line", "image": "images/mnl/nanuoya.jpg", "description": "Colombo-Badulla", "url": "data.html?id=main-line" },
+    { "name": "Northern line", "image": "images/ntl/anuradhapura.jpg", "description": "Polgahawela-Kankasanthurai", "url": "data.html?id=northern-line" }
+
   ]
 }
