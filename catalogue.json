@@ -10,7 +10,7 @@
     { "name": "Class S11", "image": "images/s11/main.jpg", "description": "Ruhunu Kumari", "url": "data.html?id=class-s11" },
     { "name": "Class S10", "image": "images/s10/main.jpg", "description": "Commuter service", "url": "data.html?id=class-s10" },
     { "name": "Class S9", "image": "images/s9/main.jpg", "description": "Commuter service", "url": "data.html?id=class-s9" },
-    { "name": "Class S8", "image": "images/s8/main.jpg", "description": "Commuter service", "url": "data.html?id=class-s8" }
+    { "name": "Class S8", "image": "images/s8/icon.svg", "description": "Commuter service", "url": "data.html?id=class-s8" }
   ],
   "Long-Distance Services": [
     { "name": "Udarata Manike", "image": "images/s14/full.jpg", "description": "Colombo-Kandy-Badulla Express", "url": "data.html?id=udarata-manike" },
@@ -23,6 +23,5 @@
   "Railway lines": [
     { "name": "Main line", "image": "images/mnl/nanuoya.jpg", "description": "Colombo-Badulla", "url": "data.html?id=main-line" },
     { "name": "Northern line", "image": "images/ntl/anuradhapura.jpg", "description": "Polgahawela-Kankasanthurai", "url": "data.html?id=northern-line" }
-
   ]
 }

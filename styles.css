@@ -433,8 +433,7 @@ li {
 }
 
 .item img {
-  width: clamp(60px, 12vw, 100px);
-  height: clamp(40px, 8vw, 70px);
+  width: clamp(50px, 12vw, 70px);
   object-fit: cover;
   border-radius: 5px;
   flex-shrink: 0;
@@ -481,4 +480,10 @@ li {
   .category-list {
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   }
+}
+#viewer360 {
+  width: 100%;
+  height: clamp(250px, 40vw, 500px);
+  border-radius: 8px;
+  overflow: hidden;
 }
