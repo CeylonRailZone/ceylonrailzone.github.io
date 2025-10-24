@@ -235,6 +235,7 @@ a:hover {
   color: #ffbb44;
   /* Added from index.html */
   font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-bottom: 0;
 }
 
 .description-text h3 {
