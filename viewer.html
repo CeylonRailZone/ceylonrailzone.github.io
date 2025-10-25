@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>360 Viewer</title>
+
+  <!-- Pannellum -->
+  <link rel="stylesheet" href="https://unpkg.com/pannellum/build/pannellum.css">
+    <link rel="stylesheet" href="styles.css">
+  <script src="https://unpkg.com/pannellum/build/pannellum.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      overflow: hidden;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="panorama"></div>
+  <div id="error" class="error" style="display:none;">⚠️ No image provided or image failed to load.</div>
+
+  <script>
+    // Get ?img=... from the URL
+    const params = new URLSearchParams(window.location.search);
+    const img = params.get("img");
+
+    if (!img) {
+      document.getElementById("error").style.display = "block";
+    } else {
+      pannellum.viewer('panorama', {
+        "type": "equirectangular",
+        "panorama": img,
+        "autoLoad": true,
+        "showZoomCtrl": true,
+        "hfov": 100,
+        "pitch": 0,
+        "yaw": 180,
+        "compass": false
+      });
+    }
+  </script>
+
+</body>
+</html>

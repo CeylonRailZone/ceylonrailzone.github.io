@@ -22,6 +22,7 @@
   ],
   "Railway lines": [
     { "name": "Main line", "image": "images/mnl/nanuoya.jpg", "description": "Colombo-Badulla", "url": "data.html?id=main-line" },
-    { "name": "Northern line", "image": "images/ntl/anuradhapura.jpg", "description": "Polgahawela-Kankasanthurai", "url": "data.html?id=northern-line" }
+    { "name": "Northern line", "image": "images/ntl/anuradhapura.jpg", "description": "Polgahawela-Kankasanthurai", "url": "data.html?id=northern-line" },
+    { "name": "Coastal line", "image": "images/ntl/anuradhapura.jpg", "description": "Polgahawela-Kankasanthurai", "url": "data.html?id=coastal-line" }
   ]
 }
