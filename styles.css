@@ -399,11 +399,17 @@ p {
 /* --- Catalogue Page Specific Styles (from catalogue.html) --- */
 .category-list {
   max-width: 1200px;
+  background-color: #00000022;
+  border-radius: 10px;
+  border:solid 3px #ffffff11;
   margin: 0 auto;
   text-align: left;
   display: grid;
   grid-template-columns: 1fr;
   gap: clamp(1rem, 2vw, 2rem);
+  backdrop-filter: blur(100px);
+  -webkit-backdrop-filter: blur(100px);
+  box-shadow: 4px 4px 29px 9px #ffffff22;
 }
 
 .category {
@@ -512,3 +518,29 @@ li {
   border: none;
   cursor: pointer;
 }
+
+    /* Styles for the background layer */
+    #background-blur-layer {
+      position: fixed; /* Fixed position to cover the entire viewport */
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2; /* Ensure it is behind everything */
+      background-size: cover;
+      background-position: center;
+      transition: background-image 1s ease-in-out;
+      filter: blur(10px); /* Apply the blur here */
+    }
+
+    /* Styles for the overlay */
+    #background-blur-layer::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #44000088; /* Dark gray overlay */
+      z-index: -1; /* Place overlay on top of the blurred image */
+    }

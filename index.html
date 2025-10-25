@@ -12,33 +12,6 @@
         background-image: none !important; /* Remove background from body to prevent conflicts */
         position: relative; /* Ensure content is positioned relative to the viewport */
     }
-
-    /* Styles for the background layer */
-    #background-blur-layer {
-      position: fixed; /* Fixed position to cover the entire viewport */
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -2; /* Ensure it is behind everything */
-      background-size: cover;
-      background-position: center;
-      transition: background-image 1s ease-in-out;
-      filter: blur(10px); /* Apply the blur here */
-    }
-
-    /* Styles for the overlay */
-    #background-blur-layer::after {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: #44000088; /* Dark gray overlay */
-      z-index: -1; /* Place overlay on top of the blurred image */
-    }
-
     
   </style>
 </head>
@@ -51,8 +24,6 @@
       <a href="index.html"><img src="../images/logo-wide-1.png" alt="Logo" style="height: 40px;"></a>
     </div>
     <nav>
-      <a href="index.html"><u>Home</u></a>
-      <a href="catalogue.html">Catalogue</a>
       <a href="about.html">About</a>
     </nav>
   </header>
@@ -62,6 +33,8 @@
       <h1>Ceylon RailZone</h1>
       <p style="padding:15px; ">This website is under construction! <a href="about.html" style="color:#ffd700;">Learn more.</a></p>
     </div>
+    <section class="category-list" id="catalogue">
+      </section>
     </main>
 
 <script>
@@ -80,7 +53,7 @@
     
     // --- Background Fading Script MODIFIED ---
     const imageCount = 9;
-    let currentImage = 1;
+    let currentImage = Math.floor(Math.random() * imageCount) + 1;
     // Target the new layer instead of the body
     const backgroundLayer = document.getElementById('background-blur-layer');
     
@@ -106,6 +79,83 @@
     // Set an interval to change the background image every 5 seconds (5000ms)
     setInterval(changeBackground, 10000); 
     // --- End Background Fading Script ---
+  
+  fetch('catalogue.json')
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById('catalogue');
+
+      let globalIndex = 0; // for continuous fade-in across all categories
+
+      for (const category in data) {
+        // Create category section
+        const section = document.createElement('div');
+        section.className = 'category';
+
+        const heading = document.createElement('h2');
+        heading.textContent = category;
+        section.appendChild(heading);
+
+        const ul = document.createElement('ul');
+
+        data[category].forEach(item => {
+          const li = document.createElement('li');
+
+          const wrapper = document.createElement('div');
+          wrapper.className = 'item';
+
+          // Apply staggered fade-in
+          wrapper.style.opacity = '0';
+          wrapper.style.transform = 'translateY(20px)';
+          wrapper.style.animation = `fadeInUp 0.6s forwards`;
+          wrapper.style.animationDelay = `${globalIndex * 0.02}s`;
+          globalIndex++; // increase index for next item
+
+          // Image link
+          const imgLink = document.createElement('a');
+          imgLink.href = item.url;
+
+          const img = document.createElement('img');
+          img.src = item.image;
+          img.alt = item.name;
+
+          imgLink.appendChild(img);
+
+          // Text wrapper
+          const textWrapper = document.createElement('div');
+          textWrapper.className = 'item-text';
+
+          const link = document.createElement('a');
+          link.href = item.url;
+          link.textContent = item.name;
+
+          const desc = document.createElement('div');
+          desc.className = 'desc';
+          desc.textContent = item.description;
+
+          textWrapper.appendChild(link);
+          textWrapper.appendChild(desc);
+
+          wrapper.appendChild(imgLink);
+          wrapper.appendChild(textWrapper);
+
+          li.appendChild(wrapper);
+          ul.appendChild(li);
+        });
+
+        section.appendChild(ul);
+        container.appendChild(section);
+      }
+    });
+
+  // CSS keyframes injection via JS (if not in CSS file)
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeInUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+  `;
+  document.head.appendChild(style);
   </script>
 
 </body>
