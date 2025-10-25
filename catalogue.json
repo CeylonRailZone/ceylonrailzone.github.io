@@ -1,8 +1,4 @@
 {
-  "Diesel-Electric Locomotives": [
-    { "name": "Class M6", "image": "images/class-m6.jpg", "description": "Badulla Night Mail", "url": "data.html?id=class-m6" },
-    { "name": "Class M2", "image": "images/class-m2.jpg", "description": "Meenagaya, Udaya Devi", "url": "data.html?id=class-m2" }
-  ],
   "Diesel Multiple Units": [
     { "name": "Class S14", "image": "images/s14/main.jpg", "description": "Udarata Manike / Podi Manike / Ella Oddissey", "url": "data.html?id=class-s14" },
     { "name": "Class S13", "image": "images/s13/main.jpg", "description": "Uttara Devi", "url": "data.html?id=class-s13" },
@@ -12,17 +8,11 @@
     { "name": "Class S9", "image": "images/s9/main.jpg", "description": "Commuter service", "url": "data.html?id=class-s9" },
     { "name": "Class S8", "image": "images/s8/main.jpg", "description": "Commuter service", "url": "data.html?id=class-s8" }
   ],
-  "Long-Distance Services": [
+  "Express Services": [
     { "name": "Udarata Manike", "image": "images/s14/full.jpg", "description": "Colombo-Kandy-Badulla Express", "url": "data.html?id=udarata-manike" },
     { "name": "Podi Manike", "image": "images/s14/full.jpg", "description": "Colombo-Kandy-Badulla Express", "url": "data.html?id=podi-manike" },
     { "name": "Ella Odyssey", "image": "images/s14/full.jpg", "description": "Colombo-Badulla Tourist train", "url": "data.html?id=ella-odyssey" },
-    { "name": "Uttara Devi", "image": "images/unavailable.png", "description": "Colombo-Jaffna-Kankasanturai Intercity Express", "url": "data.html?id=uttara-devi" },
-    { "name": "Yal Devi", "image": "images/class-m11-yal-devi.jpg", "description": "Mt.Lavinia-Colombo-Kankasanturai Intercity Express", "url": "data.html?id=yal-devi" },
-    { "name": "Denuwara Manike", "image": "images/class-s14-pattipola.jpg", "description": "Not Operational", "url": "data.html?id=denuwara-manike" }
+    { "name": "Denuwara Manike", "image": "images/s14/main.jpg", "description": "Not Operational", "url": "data.html?id=denuwara-manike" }
   ],
-  "Railway lines": [
-    { "name": "Main line", "image": "images/mnl/nanuoya.jpg", "description": "Colombo-Badulla", "url": "data.html?id=main-line" },
-    { "name": "Northern line", "image": "images/ntl/anuradhapura.jpg", "description": "Polgahawela-Kankasanthurai", "url": "data.html?id=northern-line" },
-    { "name": "Coastal line", "image": "images/ntl/anuradhapura.jpg", "description": "Polgahawela-Kankasanthurai", "url": "data.html?id=coastal-line" }
-  ]
+  "More content soon!": []
 }
