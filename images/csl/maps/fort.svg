@@ -23,9 +23,9 @@
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
-     inkscape:zoom="0.76167929"
-     inkscape:cx="1217.7041"
-     inkscape:cy="321.00124"
+     inkscape:zoom="3.0467172"
+     inkscape:cx="146.71529"
+     inkscape:cy="263.39826"
      inkscape:window-width="1920"
      inkscape:window-height="1057"
      inkscape:window-x="-8"
@@ -183,19 +183,24 @@
          id="tspan43" /></text>
     <text
        xml:space="preserve"
-       style="font-size:7.05556px;line-height:0.9;font-family:'Tw Cen MT';-inkscape-font-specification:'Tw Cen MT';text-align:center;letter-spacing:-0.494771px;word-spacing:0px;writing-mode:lr-tb;direction:ltr;text-anchor:middle;fill:#ff7d7d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:0.537468"
-       x="26.159357"
+       style="font-size:7.05556px;line-height:0.9;font-family:'Tw Cen MT';-inkscape-font-specification:'Tw Cen MT';text-align:start;letter-spacing:-0.494771px;word-spacing:0px;writing-mode:lr-tb;direction:ltr;text-anchor:start;fill:#ff7d7d;fill-opacity:1;stroke:#000000;stroke-width:0;stroke-dasharray:none;stroke-opacity:0.537468"
+       x="1.1829491"
        y="68.965591"
        id="text44"><tspan
          sodipodi:role="line"
          id="tspan44"
-         style="fill:#ff7d7d;fill-opacity:1;stroke-width:0"
-         x="26.159357"
-         y="68.965591">Coastal line - Matara</tspan><tspan
+         style="text-align:start;text-anchor:start;fill:#ff7d7d;fill-opacity:1;stroke-width:0"
+         x="1.1829491"
+         y="68.965591">Coastal line</tspan><tspan
          sodipodi:role="line"
-         style="fill:#ff7d7d;fill-opacity:1;stroke-width:0"
-         x="26.159357"
+         style="text-align:start;text-anchor:start;fill:#ff7d7d;fill-opacity:1;stroke-width:0"
+         x="1.1829491"
          y="75.315598"
+         id="tspan1">Galle - Matara - Beliatta</tspan><tspan
+         sodipodi:role="line"
+         style="text-align:start;text-anchor:start;fill:#ff7d7d;fill-opacity:1;stroke-width:0"
+         x="1.1829491"
+         y="81.665596"
          id="tspan47" /></text>
     <text
        xml:space="preserve"
