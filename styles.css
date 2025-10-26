@@ -568,14 +568,15 @@ li {
       border: 0px solid #ccc;
       background: rgba(255, 255, 255, 0.3);
       font-size: 0.8rem;
-      width: clamp(120px, 20vw, 250px);
+      width: clamp(120px, 20vw, 200px);
       height:30px;
       transition: all 0.3s ease;
     }
 
     .navbar input[type="search"]:focus {
-      width: clamp(200px, 30vw, 400px);
+      width: clamp(200px, 30vw, 300px);
       border-color: #ff6767;
+      border-radius: 6px;
       outline: none;
       background: rgba(255, 255, 255, 0.8);
     }
@@ -593,9 +594,10 @@ li {
   background-color: #00000000;
   max-height: 300px;
   overflow-y: auto;
-  width: 250px;
+  width: clamp(200px, 30vw, 300px) !important;
   display: none;
   z-index: 1000;
+  transition: opacity 0.3s ease;
 }
 
 #search-results div {

@@ -197,6 +197,20 @@ searchInput.addEventListener('keydown', (e) => {
     }
   }
 });
+// 🔽 Hide search results when input loses focus
+searchInput.addEventListener('blur', () => {
+  // Give a slight delay so click on a result still works
+  setTimeout(() => {
+    searchResults.style.display = 'none';
+  }, 150);
+});
+
+// 🔼 Show again when focused (if query exists)
+searchInput.addEventListener('focus', () => {
+  if (searchInput.value.trim() !== '' && searchResults.children.length > 0) {
+    searchResults.style.display = 'block';
+  }
+});
 
 
 
