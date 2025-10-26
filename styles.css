@@ -229,6 +229,7 @@ a:hover {
   /* Adjusted margin-left and margin-bottom to max of both files */
   margin-left: clamp(30px, 5vw, 50px);
   margin-bottom: clamp(10px, 2vw, 20px);
+  list-style-type: disc;  
 }
 
 .description-text h1 {
