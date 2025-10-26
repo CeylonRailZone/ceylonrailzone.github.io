@@ -7,12 +7,34 @@
   <title>Ceylon RailZone</title>
   <link rel="stylesheet" href="styles.css">
   <style>
-    /* CSS for the new background layer and clear content */
     body {
-        background-image: none !important; /* Remove background from body to prevent conflicts */
-        position: relative; /* Ensure content is positioned relative to the viewport */
+      background-image: none !important;
+      position: relative;
     }
-    
+    /* Search input inside navbar */
+    .navbar input[type="search"] {
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 0px solid #ccc;
+      background: rgba(255, 255, 255, 0.3);
+      font-size: 0.8rem;
+      width: clamp(120px, 20vw, 250px);
+      transition: all 0.3s ease;
+    }
+
+    .navbar input[type="search"]:focus {
+      width: clamp(200px, 30vw, 400px);
+      border-color: #ff6767;
+      outline: none;
+      background: rgba(255, 255, 255, 0.8);
+    }
+  .navbar input[type="search"]::placeholder {
+  color: #ffffff;
+}
+  .navbar input[type="search"]:focus::placeholder {
+  color: #555555;
+}
+
   </style>
 </head>
 <body>
@@ -24,139 +46,138 @@
       <a href="index.html"><img src="../images/logo-wide-1.png" alt="Logo" style="height: 40px;"></a>
     </div>
     <nav>
-      <a href="data.html?id=about">About</a>
+      <!-- 🔍 Search added here -->
+      <input type="search" id="search" placeholder="Search...">
+      <a href="data.html?id=about" >About</a>
     </nav>
   </header>
 
   <main class="content">
     <div id="intro">
       <h1>Ceylon RailZone</h1>
-      <p style="padding:15px; ">This website is under construction! <a href="about.html" style="color:#ffd700;">Learn more.</a></p>
+      <p style="padding:15px;">This website is under construction! 
+        <a href="about.html" style="color:#ffd700;">Learn more.</a>
+      </p>
     </div>
-    <section class="category-list" id="catalogue">
-      </section>
-    </main>
 
-<script>
+    <section class="category-list" id="catalogue"></section>
+  </main>
+
+  <script>
     const navbar = document.querySelector('.navbar');
-
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 10);
     });
 
     document.addEventListener('click', e => {
       const target = e.target;
-      if (target.tagName === 'IMG' && (target.classList.contains('project-image') || target.classList.contains('description-image'))) {
+      if (target.tagName === 'IMG' && 
+          (target.classList.contains('project-image') || target.classList.contains('description-image'))) {
         window.open(target.src, '_blank');
       }
     });
-    
-    // --- Background Fading Script MODIFIED ---
+
+    // --- Background Fading Script ---
     const imageCount = 9;
     let currentImage = Math.floor(Math.random() * imageCount) + 1;
-    // Target the new layer instead of the body
     const backgroundLayer = document.getElementById('background-blur-layer');
-    
-    // Preload images to prevent initial flash/jerk
+
     for (let i = 1; i <= imageCount; i++) {
-        new Image().src = `images/banners/${i}.jpg`;
+      new Image().src = `images/banners/${i}.jpg`;
     }
 
     function changeBackground() {
-        // Construct the new background image URL
-        const newBackground = `url('images/banners/${currentImage}.jpg')`;
-        
-        // Apply the new background image to the layer
-        backgroundLayer.style.backgroundImage = newBackground;
-        
-        // Move to the next image for the next cycle
-        currentImage = currentImage % imageCount + 1;
+      const newBackground = `url('images/banners/${currentImage}.jpg')`;
+      backgroundLayer.style.backgroundImage = newBackground;
+      currentImage = currentImage % imageCount + 1;
     }
 
-    // Set the initial background
-    changeBackground(); 
+    changeBackground();
+    setInterval(changeBackground, 10000);
 
-    // Set an interval to change the background image every 5 seconds (5000ms)
-    setInterval(changeBackground, 10000); 
-    // --- End Background Fading Script --- 
-   
-  
-  fetch('catalogue.json')
-    .then(res => res.json())
-    .then(data => {
-      const container = document.getElementById('catalogue');
+    // --- Catalogue Loading + Search ---
+    let allItems = [];
 
-      let globalIndex = 0; // for continuous fade-in across all categories
+    fetch('catalogue.json')
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById('catalogue');
+        let globalIndex = 0;
 
-      for (const category in data) {
-        // Create category section
-        const section = document.createElement('div');
-        section.className = 'category';
+        for (const category in data) {
+          const section = document.createElement('div');
+          section.className = 'category';
 
-        const heading = document.createElement('h2');
-        heading.textContent = category;
-        section.appendChild(heading);
+          const heading = document.createElement('h2');
+          heading.textContent = category;
+          section.appendChild(heading);
 
-        const ul = document.createElement('ul');
+          const ul = document.createElement('ul');
 
-        data[category].forEach(item => {
-          const li = document.createElement('li');
+          data[category].forEach(item => {
+            const li = document.createElement('li');
+            const wrapper = document.createElement('div');
+            wrapper.className = 'item';
+            wrapper.style.opacity = '0';
+            wrapper.style.transform = 'translateY(20px)';
+            wrapper.style.animation = `fadeInUp 0.6s forwards`;
+            wrapper.style.animationDelay = `${globalIndex * 0.02}s`;
+            globalIndex++;
 
-          const wrapper = document.createElement('div');
-          wrapper.className = 'item';
+            const imgLink = document.createElement('a');
+            imgLink.href = item.url;
 
-          // Apply staggered fade-in
-          wrapper.style.opacity = '0';
-          wrapper.style.transform = 'translateY(20px)';
-          wrapper.style.animation = `fadeInUp 0.6s forwards`;
-          wrapper.style.animationDelay = `${globalIndex * 0.02}s`;
-          globalIndex++; // increase index for next item
+            const img = document.createElement('img');
+            img.src = item.image;
+            img.alt = item.name;
+            img.loading = "lazy";
 
-          // Image link
-          const imgLink = document.createElement('a');
-          imgLink.href = item.url;
+            imgLink.appendChild(img);
 
-          const img = document.createElement('img');
-          img.src = item.image;
-          img.alt = item.name;
+            const textWrapper = document.createElement('div');
+            textWrapper.className = 'item-text';
 
-          imgLink.appendChild(img);
+            const link = document.createElement('a');
+            link.href = item.url;
+            link.textContent = item.name;
 
-          // Text wrapper
-          const textWrapper = document.createElement('div');
-          textWrapper.className = 'item-text';
+            const desc = document.createElement('div');
+            desc.className = 'desc';
+            desc.textContent = item.description;
 
-          const link = document.createElement('a');
-          link.href = item.url;
-          link.textContent = item.name;
+            textWrapper.appendChild(link);
+            textWrapper.appendChild(desc);
+            wrapper.appendChild(imgLink);
+            wrapper.appendChild(textWrapper);
+            li.appendChild(wrapper);
+            ul.appendChild(li);
 
-          const desc = document.createElement('div');
-          desc.className = 'desc';
-          desc.textContent = item.description;
+            allItems.push(li); // collect for search
+          });
 
-          textWrapper.appendChild(link);
-          textWrapper.appendChild(desc);
+          section.appendChild(ul);
+          container.appendChild(section);
+        }
 
-          wrapper.appendChild(imgLink);
-          wrapper.appendChild(textWrapper);
-
-          li.appendChild(wrapper);
-          ul.appendChild(li);
+        // --- 🔍 Search Filter Function ---
+        const searchInput = document.getElementById('search');
+        searchInput.addEventListener('input', () => {
+          const query = searchInput.value.toLowerCase();
+          allItems.forEach(li => {
+            const name = li.querySelector('.item-text a').textContent.toLowerCase();
+            const desc = li.querySelector('.desc').textContent.toLowerCase();
+            li.style.display = (name.includes(query) || desc.includes(query)) ? '' : 'none';
+          });
         });
+      });
 
-        section.appendChild(ul);
-        container.appendChild(section);
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes fadeInUp {
+        to { opacity: 1; transform: translateY(0); }
       }
-    });
-
-  // CSS keyframes injection via JS (if not in CSS file)
-  const style = document.createElement('style');
-  style.textContent = `
-    @keyframes fadeInUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-  `;
-  document.head.appendChild(style);
+    `;
+    document.head.appendChild(style);
   </script>
 
 </body>
