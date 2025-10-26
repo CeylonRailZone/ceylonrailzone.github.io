@@ -585,3 +585,34 @@ li {
   .navbar input[type="search"]:focus::placeholder {
   color: #555555;
 }
+
+#search-results {
+  position: absolute;
+  border-radius: 6px;
+  border: 1px solid #770000 !important;
+  background-color: #00000000;
+  max-height: 300px;
+  overflow-y: auto;
+  width: 250px;
+  display: none;
+  z-index: 1000;
+}
+
+#search-results div {
+  padding: 8px 12px;
+  cursor: pointer;
+  transition: background 0.2s;
+  background-color: #550000;
+  color: #fff;
+}
+
+#search-results div:hover {
+  background-color: #880000 !important;
+  color: #fff !important;
+}
+
+#search-results .highlight {
+  font-weight: bold;
+  color: #ff8888;
+}
+

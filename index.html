@@ -12,6 +12,10 @@
       position: relative;
     }
 
+    /* Optional: style for search results dropdown */
+    #search-results div:hover {
+      background-color: #f0f0f0;
+    }
   </style>
 </head>
 <body>
@@ -22,10 +26,10 @@
     <div class="logo">
       <a href="index.html"><img src="../images/logo-wide-1.png" alt="Logo" style="height: 40px;"></a>
     </div>
-    <nav>
-      <!-- 🔍 Search added here -->
+    <nav style="position:relative;">
       <input type="search" id="search" placeholder="Search...">
-      <a href="data.html?id=about" >?</a>
+      <div id="search-results" style="position:absolute; background:#fff; border:1px solid #ccc; max-height:300px; overflow-y:auto; width:200px; display:none; z-index:1000;"></div>
+      <a href="data.html?id=about">?</a>
     </nav>
   </header>
 
@@ -136,31 +140,67 @@
           container.appendChild(section);
         }
 
-        // --- 🔍 Search Filter Function ---
+        // --- 🔍 Search Filter to display results under input ---
         const searchInput = document.getElementById('search');
-        searchInput.addEventListener('input', () => {
-          const query = searchInput.value.toLowerCase();
-          allItems.forEach(li => {
-            const name = li.querySelector('.item-text a').textContent.toLowerCase();
-            const desc = li.querySelector('.desc').textContent.toLowerCase();
-            li.style.display = (name.includes(query) || desc.includes(query)) ? '' : 'none';
-          });
-        });
-      searchInput.addEventListener('keydown', (e) => {
-  if (e.key === 'Enter') {
-    const query = searchInput.value.toLowerCase();
-    const firstMatch = allItems.find(li => {
-      const title = li.querySelector('.item-text a').textContent.toLowerCase();
-      return title.includes(query);
+        const searchResults = document.getElementById('search-results');
+
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase();
+  searchResults.innerHTML = '';
+
+  if (!query) {
+    searchResults.style.display = 'none';
+    return;
+  }
+
+  const nameMatches = [];
+  const descMatches = [];
+
+  allItems.forEach(li => {
+    const link = li.querySelector('.item-text a');
+    const name = link.textContent.toLowerCase();
+    const desc = li.querySelector('.desc').textContent.toLowerCase();
+
+    if (name.includes(query)) {
+      nameMatches.push(li);
+    } else if (desc.includes(query)) {
+      descMatches.push(li);
+    }
+  });
+
+  const matches = [...nameMatches, ...descMatches];
+
+  if (matches.length === 0) {
+    searchResults.innerHTML = '<div style="padding:5px;">No results found</div>';
+  } else {
+    matches.forEach(li => {
+      const link = li.querySelector('.item-text a');
+      const nameText = link.textContent;
+      const highlightedName = nameText.replace(new RegExp(`(${query})`, 'gi'), '<span class="highlight">$1</span>');
+
+      const div = document.createElement('div');
+      div.innerHTML = highlightedName;
+      div.addEventListener('click', () => window.location.href = link.href);
+      searchResults.appendChild(div);
     });
-    if (firstMatch) {
-      const link = firstMatch.querySelector('.item-text a');
-      if (link) window.location.href = link.href; // or use window.open(link.href, '_blank') for new tab
+  }
+
+  searchResults.style.display = 'block';
+});
+
+// ✅ Press Enter to open the first result
+searchInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const firstResult = searchResults.querySelector('div');
+    if (firstResult) {
+      firstResult.click();
     }
   }
 });
-      });
 
+
+
+      });
 
     const style = document.createElement('style');
     style.textContent = `
