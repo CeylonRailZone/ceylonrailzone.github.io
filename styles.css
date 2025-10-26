@@ -592,8 +592,7 @@ li {
   border-radius: 6px;
   border: 1px solid #770000 !important;
   background-color: #00000000;
-  max-height: 300px;
-  overflow-y: auto;
+  max-height: 99999999px !important;
   width: clamp(200px, 30vw, 300px) !important;
   display: none;
   z-index: 1000;
