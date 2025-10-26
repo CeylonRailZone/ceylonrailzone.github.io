@@ -187,12 +187,26 @@ a:hover {
   color: #ffa26e;
   max-width: 900px;
   margin: 0 auto;
-  /* Adjusted margin-top to max of both files */
   margin-top: clamp(20px, 4vw, 40px);
-  /* Added from index.html */
   font-size: clamp(0.85rem, 1.2vw, 1rem);
+
+  /* --- Fade-in animation --- */
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeInUp 0.3s ease-out forwards;
 }
 
+/* --- Keyframes for fade-in from bottom --- */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 .project-description p {
   max-width: 500px;
 }
