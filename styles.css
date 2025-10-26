@@ -1,3 +1,5 @@
+
+
 /* --- Global Reset --- */
 * {
   margin: 0;
@@ -559,3 +561,27 @@ li {
       background-color: #44000088; /* Dark gray overlay */
       z-index: -1; /* Place overlay on top of the blurred image */
     }
+    /* Search input inside navbar */
+    .navbar input[type="search"] {
+      padding: 6px 12px;
+      border-radius: 20px;
+      border: 0px solid #ccc;
+      background: rgba(255, 255, 255, 0.3);
+      font-size: 0.8rem;
+      width: clamp(120px, 20vw, 250px);
+      height:30px;
+      transition: all 0.3s ease;
+    }
+
+    .navbar input[type="search"]:focus {
+      width: clamp(200px, 30vw, 400px);
+      border-color: #ff6767;
+      outline: none;
+      background: rgba(255, 255, 255, 0.8);
+    }
+  .navbar input[type="search"]::placeholder {
+  color: #ffffff;
+}
+  .navbar input[type="search"]:focus::placeholder {
+  color: #555555;
+}
