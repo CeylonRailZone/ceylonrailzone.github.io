@@ -146,7 +146,21 @@
             li.style.display = (name.includes(query) || desc.includes(query)) ? '' : 'none';
           });
         });
+      searchInput.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') {
+    const query = searchInput.value.toLowerCase();
+    const firstMatch = allItems.find(li => {
+      const title = li.querySelector('.item-text a').textContent.toLowerCase();
+      return title.includes(query);
+    });
+    if (firstMatch) {
+      const link = firstMatch.querySelector('.item-text a');
+      if (link) window.location.href = link.href; // or use window.open(link.href, '_blank') for new tab
+    }
+  }
+});
       });
+
 
     const style = document.createElement('style');
     style.textContent = `
