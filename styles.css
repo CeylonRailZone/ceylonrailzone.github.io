@@ -618,21 +618,21 @@ li {
 }
 
 .read-more {
-  display: inline-block;
-  background-color: #550000;
+  display: inline-block !important;
+  background-color: #550000 !important;
   color: #ffaaaa !important;
   text-decoration: none !important;
-  padding: 8px 16px;
-  border-radius: 6px;
+  padding: 8px 16px !important;
+  border-radius: 6px !important;
   font-size: 0.9rem;
   transition: background 0.3s ease, transform 0.2s ease, color 0.2s ease !important;
-  margin-bottom:100px;
-  float: right;
+  margin-bottom:100px !important;
+  float: right !important;
   
 }
 
 .read-more:hover {
-  background-color: #990000;
-  transform: translateX(10px);
+  background-color: #990000 !important;
+  transform: translateX(10px) !important;
   color: white !important;
 }
