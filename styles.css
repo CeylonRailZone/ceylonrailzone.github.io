@@ -626,7 +626,6 @@ li {
   border-radius: 6px !important;
   font-size: 0.9rem;
   transition: background 0.3s ease, transform 0.2s ease, color 0.2s ease !important;
-  margin-bottom:100px !important;
   float: right !important;
   
 }
