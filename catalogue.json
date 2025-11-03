@@ -8,6 +8,24 @@
     { "name": "Class S9", "image": "images/s9/main.jpg", "description": "Commuter service", "url": "data.html?id=class-s9" },
     { "name": "Class S8", "image": "images/s8/main.jpg", "description": "Commuter service", "url": "data.html?id=class-s8" }
   ],
+  "Diesel Electric Locomotives": [
+    { "name": "Class M11", "image":"images/m11/main.jpg", "description": "", "url": "data.html?id=unavailable" },
+    { "name": "Class M10", "image":"images/m10/main.jpg", "description": "", "url": "data.html?id=unavailable" },
+    { "name": "Class M9", "image": "images/m9/main.sjpg", "description": "", "url": "data.html?id=unavailable" },
+    { "name": "Class M8", "image": "images/m8/main.jpg", "description": "", "url": "data.html?id=unavailable" },
+    { "name": "Class M7", "image": "images/m7/main.jpg", "description": "", "url": "data.html?id=unavailable" },
+    { "name": "Class M6", "image": "images/m6/main.jpg", "description": "", "url": "data.html?id=unavailable" },
+    { "name": "Class M5", "image": "images/m5/main.jpg", "description": "", "url": "data.html?id=unavailable" },
+    { "name": "Class M4", "image": "images/m4/main.jpg", "description": "", "url": "data.html?id=unavailable" },
+    { "name": "Class M2", "image": "images/m2/main.jpg", "description": "", "url": "data.html?id=unavailable" }
+  ],
+  "Other Locomotives": [
+    { "name": "Class W1", "image": "images/unavailable.png", "description": "", "url": "data.html?id=unavailable" },
+    { "name": "Class W2", "image": "images/unavailable.png", "description": "", "url": "data.html?id=unavailable" },
+    { "name": "Class W3", "image": "images/unavailable.png", "description": "", "url": "data.html?id=unavailable" },
+    { "name": "Class Y", "image": "images/unavailable.png", "description": "", "url": "data.html?id=unavailable" },
+    { "name": "Railbus", "image": "images/railbus/main.jpg", "description": "", "url": "data.html?id=unavailable" }
+  ],
   "Express Services": [
     { "name": "Udarata Manike", "image": "images/s14/full.jpg", "description": "Colombo-Kandy-Badulla Express", "url": "data.html?id=udarata-manike" },
     { "name": "Podi Manike", "image": "images/s14/full.jpg", "description": "Colombo-Kandy-Badulla Express", "url": "data.html?id=podi-manike" },

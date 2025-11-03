@@ -617,3 +617,22 @@ li {
   color: #ff8888;
 }
 
+.read-more {
+  display: inline-block;
+  background-color: #550000;
+  color: #ffaaaa !important;
+  text-decoration: none !important;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  transition: background 0.3s ease, transform 0.2s ease, color 0.2s ease !important;
+  margin-bottom:100px;
+  float: right;
+  
+}
+
+.read-more:hover {
+  background-color: #990000;
+  transform: translateX(10px);
+  color: white !important;
+}
