@@ -652,11 +652,11 @@ li {
 .category-card {
   position: relative;
   border-radius: 10px;
-  overflow: hidden;
+  overflow: hidden; /* ensures image stays clipped */
   cursor: pointer;
-  background-color: #00000022;      /* semi-transparent black */
-  border: 3px solid #ffffff11;      /* subtle border */
-  backdrop-filter: blur(100px);      /* glassy blur effect */
+  background-color: #00000022;
+  border: 3px solid #ffffff11;
+  backdrop-filter: blur(100px);
   -webkit-backdrop-filter: blur(100px);
   box-shadow: 4px 4px 29px 9px #ffffff11;
   color: #fff;
@@ -669,15 +669,17 @@ li {
   object-fit: cover;
   display: block;
   filter: brightness(0.8);
-  transition: filter 0.3s ease;
+  transition: transform 0.5s ease, filter 0.3s ease;
+  transform-origin: bottom;
 }
 
 .category-card:hover img {
   filter: brightness(1);
+  transform: scale(1.05); /* zoom in slightly */
 }
 
 .category-card h2 {
   font-size: 1.3rem;
   margin: 15px 0;
-  padding: 0 10px;
+  padding: 0;
 }
