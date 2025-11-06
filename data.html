@@ -165,6 +165,35 @@ document.addEventListener('click', function (e) {
     }, { once: true });
   }
 });
+// --------------------------
+// Smooth scrolling with 100px offset for hash links
+// --------------------------
+document.addEventListener('click', (e) => {
+  const target = e.target.closest('a[href^="#"]');
+  if (!target) return;
+
+  const hash = target.getAttribute('href');
+  if (hash.length > 1 && document.querySelector(hash)) {
+    e.preventDefault();
+    const el = document.querySelector(hash);
+
+    const top = el.getBoundingClientRect().top + window.pageYOffset - 100;
+    window.scrollTo({ top, behavior: 'smooth' });
+
+    // Update URL hash without jumping
+    history.pushState(null, '', hash);
+  }
+});
+
+// Handle case where page loads with an existing hash
+window.addEventListener('load', () => {
+  if (window.location.hash && document.querySelector(window.location.hash)) {
+    const el = document.querySelector(window.location.hash);
+    const top = el.getBoundingClientRect().top + window.pageYOffset - 100;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+});
+
 
 
 
