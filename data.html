@@ -42,6 +42,10 @@
     <div class="logo">
       <a href="index.html"><img src="../images/logo-wide-1.png" alt="Logo" style="height: 40px;"></a>
     </div>
+    <nav style="position:relative;">
+      <input type="search" id="search" placeholder="Search...">
+      <div id="search-results" style="position:absolute; background:#fff; border:1px solid #ccc; max-height:300px; overflow-y:auto; width:200px; display:none; z-index:1000;"></div>
+    </nav>
   </header>
 
   <main id="projectContent" class="content">Loading...</main>
@@ -193,6 +197,83 @@ window.addEventListener('load', () => {
     window.scrollTo({ top, behavior: 'smooth' });
   }
 });
+
+    // --- Search from catalogue.json ---
+  let allItems = [];
+
+  fetch('catalogue.json')
+    .then(res => res.json())
+    .then(data => {
+      for (const category in data) {
+        data[category].forEach(item => {
+          allItems.push(item); // item should have {name, description, url}
+        });
+      }
+    });
+
+  const searchInput = document.getElementById('search');
+  const searchResults = document.getElementById('search-results');
+
+  searchInput.addEventListener('input', () => {
+    const query = searchInput.value.toLowerCase();
+    searchResults.innerHTML = '';
+
+    if (!query) {
+      searchResults.style.display = 'none';
+      return;
+    }
+
+    const nameMatches = [];
+    const descMatches = [];
+
+    allItems.forEach(item => {
+      const name = item.name.toLowerCase();
+      const desc = item.description.toLowerCase();
+
+      if (name.includes(query)) {
+        nameMatches.push(item);
+      } else if (desc.includes(query)) {
+        descMatches.push(item);
+      }
+    });
+
+    const matches = [...nameMatches, ...descMatches];
+
+    if (matches.length === 0) {
+      searchResults.innerHTML = '<div style="padding:5px;">No results found</div>';
+    } else {
+      matches.forEach(item => {
+        const div = document.createElement('div');
+        div.innerHTML = item.name.replace(
+          new RegExp(`(${query})`, 'gi'),
+          '<span class="highlight">$1</span>'
+        );
+        div.addEventListener('click', () => window.location.href = item.url);
+        searchResults.appendChild(div);
+      });
+    }
+
+    searchResults.style.display = 'block';
+  });
+
+  // Press Enter to open first result
+  searchInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      const first = searchResults.querySelector('div');
+      if (first) first.click();
+    }
+  });
+
+  // Hide search results on blur
+  searchInput.addEventListener('blur', () => {
+    setTimeout(() => (searchResults.style.display = 'none'), 150);
+  });
+
+  // Show search results again on focus if query exists
+  searchInput.addEventListener('focus', () => {
+    if (searchInput.value.trim() && searchResults.children.length > 0)
+      searchResults.style.display = 'block';
+  });
 
 
 

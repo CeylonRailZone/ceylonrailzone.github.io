@@ -1,36 +1,18 @@
 {
   "Diesel Multiple Units": [
-    { "name": "Class S14", "image": "images/s14/main.jpg", "description": "Udarata Manike / Podi Manike / Ella Oddissey", "url": "data.html?id=class-s14" },
-    { "name": "Class S13", "image": "images/s13/main.jpg", "description": "Uttara Devi", "url": "data.html?id=class-s13" },
-    { "name": "Class S12", "image": "images/s12/main.jpg", "description": "Tikiri Manike", "url": "data.html?id=class-s12" },
-    { "name": "Class S11", "image": "images/s11/main.jpg", "description": "Ruhunu Kumari", "url": "data.html?id=class-s11" },
-    { "name": "Class S10", "image": "images/s10/main.jpg", "description": "Commuter service", "url": "data.html?id=class-s10" },
-    { "name": "Class S9", "image": "images/s9/main.jpg", "description": "Commuter service", "url": "data.html?id=class-s9" },
-    { "name": "Class S8", "image": "images/s8/main.jpg", "description": "Commuter service", "url": "data.html?id=class-s8" }
-  ],
-  "Diesel Electric Locomotives": [
-    { "name": "Class M11", "image":"images/m11/main.jpg", "description": "", "url": "data.html?id=unavailable" },
-    { "name": "Class M10", "image":"images/m10/main.jpg", "description": "", "url": "data.html?id=unavailable" },
-    { "name": "Class M9", "image": "images/m9/main.sjpg", "description": "", "url": "data.html?id=unavailable" },
-    { "name": "Class M8", "image": "images/m8/main.jpg", "description": "", "url": "data.html?id=unavailable" },
-    { "name": "Class M7", "image": "images/m7/main.jpg", "description": "", "url": "data.html?id=unavailable" },
-    { "name": "Class M6", "image": "images/m6/main.jpg", "description": "", "url": "data.html?id=unavailable" },
-    { "name": "Class M5", "image": "images/m5/main.jpg", "description": "", "url": "data.html?id=unavailable" },
-    { "name": "Class M4", "image": "images/m4/main.jpg", "description": "", "url": "data.html?id=unavailable" },
-    { "name": "Class M2", "image": "images/m2/main.jpg", "description": "", "url": "data.html?id=unavailable" }
-  ],
-  "Other Locomotives": [
-    { "name": "Class W1", "image": "images/unavailable.png", "description": "", "url": "data.html?id=unavailable" },
-    { "name": "Class W2", "image": "images/unavailable.png", "description": "", "url": "data.html?id=unavailable" },
-    { "name": "Class W3", "image": "images/unavailable.png", "description": "", "url": "data.html?id=unavailable" },
-    { "name": "Class Y", "image": "images/unavailable.png", "description": "", "url": "data.html?id=unavailable" },
-    { "name": "Railbus", "image": "images/railbus/main.jpg", "description": "", "url": "data.html?id=unavailable" }
+    { "name": "Class S14", "image": "images/s14/main.jpg", "description": "Udarata Manike Podi Manike Ella Oddissey China Chinese DEMU DMU Blue Red", "url": "data.html?id=class-s14" },
+    { "name": "Class S13", "image": "images/s13/main.jpg", "description": "Uttara Devi India Indian DEMU DMU Blue", "url": "data.html?id=class-s13" },
+    { "name": "Class S12", "image": "images/s12/main.jpg", "description": "Tikiri Manike China Chinese DEMU DMU Blue", "url": "data.html?id=class-s12" },
+    { "name": "Class S11", "image": "images/s11/main.jpg", "description": "Ruhunu Kumari India Indian DEMU DMU Red", "url": "data.html?id=class-s11" },
+    { "name": "Class S10", "image": "images/s10/main.jpg", "description": "Commuter service China Chinese DEMU DMU Blue", "url": "data.html?id=class-s10" },
+    { "name": "Class S9", "image": "images/s9/main.jpg", "description": "Commuter service China Chinese DEMU DMU Blue", "url": "data.html?id=class-s9" },
+    { "name": "Class S8", "image": "images/s8/main.jpg", "description": "Commuter service Japan Japanese DEMU DMU Orange Brown", "url": "data.html?id=class-s8" }
   ],
   "Express Services": [
-    { "name": "Udarata Manike", "image": "images/s14/full.jpg", "description": "Colombo-Kandy-Badulla Express", "url": "data.html?id=udarata-manike" },
-    { "name": "Podi Manike", "image": "images/s14/full.jpg", "description": "Colombo-Kandy-Badulla Express", "url": "data.html?id=podi-manike" },
-    { "name": "Ella Odyssey", "image": "images/s14/full.jpg", "description": "Colombo-Badulla Tourist train", "url": "data.html?id=ella-odyssey" },
-    { "name": "Denuwara Manike", "image": "images/s14/main.jpg", "description": "Not Operational", "url": "data.html?id=denuwara-manike" }
+    { "name": "Udarata Manike", "image": "images/s14/full.jpg", "description": "Colombo Kandy Ella Badulla Express S14", "url": "data.html?id=udarata-manike" },
+    { "name": "Podi Manike", "image": "images/s14/full.jpg", "description": "Colombo Kandy Ella Badulla Express S14", "url": "data.html?id=podi-manike" },
+    { "name": "Ella Odyssey", "image": "images/s14/full.jpg", "description": "Colombo Kandy Ella Badulla Tourist S14", "url": "data.html?id=ella-odyssey" },
+    { "name": "Denuwara Manike", "image": "images/s14/main.jpg", "description": "Not Operational S14", "url": "data.html?id=denuwara-manike" }
   ],
   "Railway lines": [
     { "name": "Coastal Line", "image": "images/csl/main.jpg", "description": "Article Not finished...", "url": "data.html?id=coastal-line" }
