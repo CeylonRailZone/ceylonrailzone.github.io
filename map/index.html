@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sri Lanka Railway Map</title>
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet/dist/leaflet.css"
+  />
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+    }
+    #map {
+      height: 100%;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+
+  <script>
+    // Create map centered on Sri Lanka
+    const map = L.map('map').setView([7.8731, 80.7718], 8);
+
+    // Add OpenStreetMap base layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 19,
+      attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Load and overlay GeoJSON
+    fetch('data.geojson')
+      .then(response => {
+        if (!response.ok) throw new Error('Failed to load slr.geojson');
+        return response.json();
+      })
+      .then(data => {
+        const railwayLayer = L.geoJSON(data, {
+          style: {
+            color: '#ff6600',
+            weight: 3
+          },
+          onEachFeature: (feature, layer) => {
+            if (feature.properties && feature.properties.name) {
+              layer.bindPopup(`<b>${feature.properties.name}</b>`);
+            }
+          }
+        }).addTo(map);
+
+        // Fit map to data bounds
+        map.fitBounds(railwayLayer.getBounds());
+      })
+      .catch(err => console.error(err));
+  </script>
+</body>
+</html>
