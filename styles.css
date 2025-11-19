@@ -746,3 +746,18 @@ li {
   }
 }
 
+#copyright-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 8px 0;
+  font-size: 14px;
+  background: #ffffff11;
+  border-top: solid 2px #ffffff11;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  z-index: 2000;
+}
+
