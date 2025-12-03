@@ -653,6 +653,7 @@ li {
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
+  margin-bottom: 60px;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: clamp(1rem, 2vw, 2rem);
 }
