@@ -694,7 +694,13 @@ li {
 .category-card h2 {
   font-size: 1.3rem;
   margin: 15px 0;
+  margin-bottom: 1px;
   padding: 0;
+}
+
+.category-card p {
+  margin: 10px;
+  margin-top: 1px;
 }
 
 /* Floating quick links */
