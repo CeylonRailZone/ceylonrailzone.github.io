@@ -768,3 +768,104 @@ li {
   z-index: 2000;
 }
 
+    main.content { max-width:1100px; margin:100px auto 40px; padding: 0 16px; }
+
+    /* --- News section --- */
+    #news {
+      margin-bottom: 28px;
+    }
+
+    .news-banner {
+      position: relative;
+      width: 100%;
+      height: 320px;
+      border-radius: 12px;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.35);
+      display:flex;
+      align-items:flex-end;
+      text-align: left;
+    }
+
+    .news-banner::before {
+      /* subtle gradient overlay to make text readable */
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 80%);
+      z-index: 1;
+    }
+
+    .news-banner-content {
+      position: relative;
+      z-index: 2;
+      color: #fff;
+      padding: 20px;
+      max-width: 80%;
+    }
+
+    .news-banner h2 {
+      margin: 0 0 6px 0;
+      font-size: clamp(1.2rem, 2.2vw, 1.8rem);
+      letter-spacing: 0.2px;
+    }
+    .news-banner p {
+      margin: 0 0 10px 0;
+      font-size: 0.95rem;
+      opacity: 0.95;
+    }
+    .news-cta {
+      display:inline-block;
+      padding:8px 12px;
+      border-radius:8px;
+      background: rgba(255,215,0,0.95);
+      color: #000;
+      font-weight:600;
+      text-decoration:none;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    /* small news list */
+    .news-list {
+      margin-top:12px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap:12px;
+    }
+    .news-card {
+      background: #fff1;
+      color: #fff;
+      padding:12px;
+      border-radius:10px;
+      display:flex;
+      gap:10px;
+      align-items:flex-start;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      text-align: left;
+  border: 1px solid #ffffff11;
+  border-top: 2px solid #ffffff33;
+    }
+    .news-card img {
+      width:84px;
+      height:64px;
+      object-fit:cover;
+      border-radius:6px;
+      flex:0 0 84px;
+    }
+    .news-card h3 {
+      margin:0 0 6px 0;
+      font-size:1rem;
+    }
+    .news-card p { margin:0; font-size:0.88rem; opacity:0.9; }
+
+    /* highlight style for the inline search results (kept from your script) */
+    .highlight { background: #ffd70066; padding:0 2px; border-radius:2px; }
+
+    @media (max-width:720px){
+      .news-banner { height:220px; }
+      .news-banner-content { max-width:100%; }
+    }

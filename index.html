@@ -10,8 +10,8 @@
     body {
       background-image: none !important;
       position: relative;
+      font-family: Arial, sans-serif;
     }
-
   </style>
 </head>
 <body>
@@ -25,17 +25,59 @@
     <nav style="position:relative;">
       <input type="search" id="search" placeholder="Search...">
       <div id="search-results" style="position:absolute; background:#fff; border:1px solid #ccc; max-height:300px; overflow-y:auto; width:200px; display:none; z-index:1000;"></div>
-      <a href="data.html?id=about">?</a>
+      <a href="data.html?id=about" style="color:#fff; margin-left:12px;">?</a>
     </nav>
   </header>
 
   <main class="content">
     <div id="intro">
       <h1>Ceylon RailZone</h1>
-      <p style="padding:15px;">This website is under construction! 
+      <p style="padding:15px;">This website is under construction!
         <a href="data.html?id=about" style="color:#ffd700;">Learn more.</a>
       </p>
     </div>
+
+    <!-- ===== NEWS SECTION ===== -->
+    <section id="news" aria-labelledby="news-heading">
+
+      <!-- Featured banner -->
+      <article class="news-banner" role="article" aria-label="Featured news"
+               style="background-image: url('images/s14/full.jpg');" onclick="location.href='data.html?id=news'">
+        <div class="news-banner-content">
+          <h2>Major Desruption on Main line - Tracks are floating!</h2>
+          <p>Parts of the Main line has been destroyed by the recent floods caused by the Ditwah Cyclone. Damages are unimaginable and there's no indication on when it will be back to normal.</p>
+        </div>
+      </article>
+
+      <!-- Small list of other news items -->
+      <div class="news-list" style="margin-top:14px;">
+        <article class="news-card" onclick="location.href=''" role="button" aria-pressed="false">
+          <img src="images/unavailable.png" alt="thumbnail for schedule change">
+          <div>
+            <h3>Unavailable</h3>
+            <p>This is under contruction</p>
+          </div>
+        </article>
+
+        <article class="news-card" onclick="location.href=''" role="button" aria-pressed="false">
+          <img src="images/unavailable.png" alt="thumbnail for schedule change">
+          <div>
+            <h3>Unavailable</h3>
+            <p>This is under contruction</p>
+          </div>
+        </article>
+
+        <article class="news-card" onclick="location.href=''" role="button" aria-pressed="false">
+          <img src="images/unavailable.png" alt="thumbnail for schedule change">
+          <div>
+            <h3>Unavailable</h3>
+            <p>This is under contruction</p>
+          </div>
+        </article>
+      </div>
+    </section>
+    <!-- ===== END NEWS SECTION ===== -->
+
     <h2 style="border-bottom: solid 2px #ffff0033; font-size: 2rem;">Wiki</h2>
     <section id="catalogue">
       <div class="category-card" onclick="location.href='data.html?id=dmu'">
@@ -53,27 +95,8 @@
         <h2>Temporarily Unavailable</h2>
       </div>
     </section>
-    
-    <h2 style="border-bottom: solid 2px #ffff0033; font-size: 2rem;">News</h2>
-    <section id="catalogue">
-      <div class="category-card" onclick="window.open('https://web.facebook.com/share/p/1ARwuMYmt5/', '_blank')">
-        <img src="images/news/elephant-crossing.jpg" alt="Diesel Multiple Units">
-        <h2>Elephant Crossing Signs</h2>
-        <p>2025-09-09</p>
-        <p>Ministry of Environment and Sri Lanka Railways has installed Elephant Crossing signs on tracks where elephants regurary cross the tracks.</p>
-      </div>
-      
-      <div class="category-card" style="filter: grayscale(100%);">
-        <img src="images/unavailable.png" alt="Express Services">
-        <h2>Unavailable</h2>
-      </div>
-      
-      <div class="category-card" style="filter: grayscale(100%);">
-        <img src="images/unavailable.png" alt="Express Services">
-        <h2>Unavailable</h2>
-      </div>
-    </section>
-    
+
+
     <h2 style="border-bottom: solid 2px #ffff0033; font-size: 2rem;">Our Community!</h2>
     <section id="catalogue">
       <div class="category-card" onclick="window.open('https://www.discord.gg/RaeKqFdcve', '_blank')">
@@ -105,7 +128,7 @@
   // --- Image click to open full size ---
   document.addEventListener('click', e => {
     const target = e.target;
-    if (target.tagName === 'IMG' && 
+    if (target.tagName === 'IMG' &&
         (target.classList.contains('project-image') || target.classList.contains('description-image'))) {
       window.open(target.src, '_blank');
     }
@@ -218,7 +241,6 @@
   <footer id="copyright-footer">
   © 2025 ChipFlare Studios. All rights reserved.
 </footer>
-
 
 </body>
 </html>
