@@ -51,229 +51,291 @@
   <main id="projectContent" class="content" style="padding-bottom: 100px;">Loading...</main>
 
 <script>
-  // --------------------------
-  // URL helpers
-  // --------------------------
-  function getIdFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get("id");
+// --------------------------
+// URL helpers
+// --------------------------
+function getIdFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("id");
+}
+
+// --------------------------
+// Navbar scroll effect
+// --------------------------
+const navbar = document.querySelector(".navbar");
+const content = document.getElementById("projectContent");
+
+window.addEventListener("scroll", () => {
+  navbar.classList.toggle("scrolled", window.scrollY > 10);
+});
+
+// --------------------------
+// Load project content
+// --------------------------
+function loadProject(projectId) {
+  if (!projectId) {
+    content.innerHTML =
+      "<h2 style='color:#ff6767; text-align:center'>No entry selected.</h2>";
+    document.title = "No Entry Selected";
+    return;
   }
 
-  // --------------------------
-  // Navbar scroll effect
-  // --------------------------
-  const navbar = document.querySelector('.navbar');
-  const content = document.getElementById("projectContent");
+  document.title = "Loading...";
 
-  window.addEventListener('scroll', () => {
-    navbar.classList.toggle('scrolled', window.scrollY > 10);
-  });
+  fetch(`entries/${projectId}.html`)
+    .then((res) => {
+      if (!res.ok) throw new Error("Not found");
+      return res.text();
+    })
+    .then((html) => {
+      content.innerHTML = html;
 
-  // --------------------------
-  // Load project content
-  // --------------------------
-  function loadProject(projectId) {
-    if (!projectId) {
-      content.innerHTML = "<h2 style='color:#ff6767; text-align:center'>No entry selected.</h2>";
-      document.title = "No Entry Selected";
-      return;
-    }
+      // Set page title
+      const titleEl = content.querySelector("h1, h2");
+      document.title = titleEl ? titleEl.textContent.trim() : "Entry";
 
-    document.title = "Loading...";
+      // Navigation buttons
+      const prev = content.querySelector('[data-nav="prev"]');
+      const next = content.querySelector('[data-nav="next"]');
+      const timeElement = content.querySelector(".time");
 
-    fetch(`entries/${projectId}.html`)
-      .then(res => {
-        if (!res.ok) throw new Error("Not found");
-        return res.text();
-      })
-      .then(html => {
-        content.innerHTML = html;
+      if (timeElement && (prev || next)) {
+        const navContainer = document.createElement("div");
+        navContainer.style.textAlign = "center";
+        navContainer.style.margin = "1.5rem 0 2rem";
+        navContainer.style.display = "flex";
+        navContainer.style.justifyContent = "center";
+        navContainer.style.gap = "20px";
 
-        // Set page title
-        const titleEl = content.querySelector("h1, h2"); 
-        document.title = titleEl ? titleEl.textContent.trim() : "Entry";
-
-        // Navigation buttons
-        const prev = content.querySelector('[data-nav="prev"]');
-        const next = content.querySelector('[data-nav="next"]');
-        const timeElement = content.querySelector('.time');
-
-        if (timeElement && (prev || next)) {
-          const navContainer = document.createElement('div');
-          navContainer.style.textAlign = 'center';
-          navContainer.style.margin = '1.5rem 0 2rem';
-          navContainer.style.display = 'flex';
-          navContainer.style.justifyContent = 'center';
-          navContainer.style.gap = '20px';
-
-          if (prev) {
-            const prevBtn = document.createElement('a');
-            prevBtn.href = `?id=${prev.dataset.target}`; 
-            prevBtn.textContent = '◀ Previous';
-            prevBtn.className = 'nav-button';
-            navContainer.appendChild(prevBtn);
-          }
-
-          if (next) {
-            const nextBtn = document.createElement('a');
-            nextBtn.href = `?id=${next.dataset.target}`;
-            nextBtn.textContent = 'Next ▶';
-            nextBtn.className = 'nav-button';
-            navContainer.appendChild(nextBtn);
-          }
-
-          timeElement.insertAdjacentElement('afterend', navContainer);
+        if (prev) {
+          const prevBtn = document.createElement("a");
+          prevBtn.href = `?id=${prev.dataset.target}`;
+          prevBtn.textContent = "◀ Previous";
+          prevBtn.className = "nav-button";
+          navContainer.appendChild(prevBtn);
         }
-      })
-      .catch(err => {
-        content.innerHTML = "<h2 style='color:#ff6767; text-align:center'>Entry not found or failed to load.</h2>";
-        document.title = "Entry Not Found";
-        console.error(err);
-      });
-  }
 
-  // Initial load
-  loadProject(getIdFromURL());
+        if (next) {
+          const nextBtn = document.createElement("a");
+          nextBtn.href = `?id=${next.dataset.target}`;
+          nextBtn.textContent = "Next ▶";
+          nextBtn.className = "nav-button";
+          navContainer.appendChild(nextBtn);
+        }
 
-  // --------------------------
-document.addEventListener('click', function (e) {
+        timeElement.insertAdjacentElement("afterend", navContainer);
+      }
+    })
+    .catch((err) => {
+      content.innerHTML =
+        "<h2 style='color:#ff6767; text-align:center'>Entry not found or failed to load.</h2>";
+      document.title = "Entry Not Found";
+      console.error(err);
+    });
+}
+
+// Initial load
+loadProject(getIdFromURL());
+
+// --------------------------
+// Image zoom → open new tab
+// --------------------------
+document.addEventListener("click", function (e) {
   const target = e.target;
-  if (target.tagName === 'IMG' && (target.classList.contains('project-image') || target.classList.contains('description-image'))) {
-    
+  if (
+    target.tagName === "IMG" &&
+    (target.classList.contains("project-image") ||
+      target.classList.contains("description-image"))
+  ) {
     const clone = target.cloneNode();
     const rect = target.getBoundingClientRect();
 
-    // Set initial position
-    clone.style.position = 'fixed';
-    clone.style.top = rect.top + 'px';
-    clone.style.left = rect.left + 'px';
-    clone.style.width = rect.width + 'px';
-    clone.style.height = rect.height + 'px';
-    clone.style.transition = 'all 0.25s ease';
+    clone.style.position = "fixed";
+    clone.style.top = rect.top + "px";
+    clone.style.left = rect.left + "px";
+    clone.style.width = rect.width + "px";
+    clone.style.height = rect.height + "px";
+    clone.style.transition = "all 0.25s ease";
     clone.style.zIndex = 9999;
-    clone.style.objectFit = 'cover';
+    clone.style.objectFit = "cover";
     clone.style.borderRadius = window.getComputedStyle(target).borderRadius;
 
     document.body.appendChild(clone);
 
-    // Force reflow
     clone.getBoundingClientRect();
 
-    // Animate: zoom in + fade out
-    clone.style.transform = 'scale(2)'; // make it 2x bigger
-    clone.style.opacity = '0'; // fade away
+    clone.style.transform = "scale(2)";
+    clone.style.opacity = "0";
 
-    clone.addEventListener('transitionend', () => {
-      window.open(target.src, "_blank");
-      clone.remove();
-    }, { once: true });
+    clone.addEventListener(
+      "transitionend",
+      () => {
+        window.open(target.src, "_blank");
+        clone.remove();
+      },
+      { once: true }
+    );
   }
 });
+
 // --------------------------
-// Smooth scrolling with 100px offset for hash links
+// Smooth scrolling + highlight
 // --------------------------
-document.addEventListener('click', (e) => {
-  const target = e.target.closest('a[href^="#"]');
-  if (!target) return;
+document.addEventListener("click", (e) => {
+  const link = e.target.closest('a[href^="#"]');
+  if (!link) return;
 
-  const hash = target.getAttribute('href');
-  if (hash.length > 1 && document.querySelector(hash)) {
-    e.preventDefault();
-    const el = document.querySelector(hash);
+  const hash = link.getAttribute("href");
+  if (!hash || hash.length <= 1) return;
 
-    const top = el.getBoundingClientRect().top + window.pageYOffset - 100;
-    window.scrollTo({ top, behavior: 'smooth' });
+  const el = document.querySelector(hash);
+  if (!el) return;
 
-    // Update URL hash without jumping
-    history.pushState(null, '', hash);
-  }
+  e.preventDefault();
+
+  const targetTop = el.getBoundingClientRect().top + window.pageYOffset - 100;
+  const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+
+  // smooth scroll
+  window.scrollTo({
+    top: Math.min(targetTop, maxScroll),
+    behavior: "smooth"
+  });
+
+  history.pushState(null, "", hash);
+
+  waitForScrollEnd(targetTop, maxScroll, () => {
+    highlightOverlay(el);
+  });
 });
 
-// Handle case where page loads with an existing hash
-window.addEventListener('load', () => {
-  if (window.location.hash && document.querySelector(window.location.hash)) {
-    const el = document.querySelector(window.location.hash);
-    const top = el.getBoundingClientRect().top + window.pageYOffset - 100;
-    window.scrollTo({ top, behavior: 'smooth' });
+function waitForScrollEnd(targetTop, maxScroll, callback) {
+  let tries = 0;
+
+  function check() {
+    const current = window.pageYOffset;
+    const diff = Math.abs(current - targetTop);
+
+    // 📌 case 1: reached position normally
+    if (diff < 3) return callback();
+
+    // 📌 case 2: we're stuck at the bottom → trigger instantly
+    if (current >= maxScroll - 1) return callback();
+
+    // fallback so we never loop forever
+    if (tries++ > 80) return callback();
+
+    requestAnimationFrame(check);
   }
-});
 
-    // --- Search from catalogue.json ---
-  let allItems = [];
+  check();
+}
 
-  fetch('catalogue.json')
-    .then(res => res.json())
-    .then(data => {
-      for (const category in data) {
-        data[category].forEach(item => {
-          allItems.push(item); // item should have {name, description, url}
-        });
-      }
-    });
 
-  const searchInput = document.getElementById('search');
-  const searchResults = document.getElementById('search-results');
+function highlightOverlay(el) {
+  const rect = el.getBoundingClientRect();
 
-  searchInput.addEventListener('input', () => {
-    const query = searchInput.value.toLowerCase();
-    searchResults.innerHTML = '';
+  const overlay = document.createElement("div");
+  overlay.style.position = "fixed";
+  overlay.style.left = rect.left + "px";
+  overlay.style.top = rect.top + "px";
+  overlay.style.width = rect.width + "px";
+  overlay.style.height = rect.height + "px";
+  overlay.style.pointerEvents = "none";
+  overlay.style.borderRadius = "10px";
+  overlay.style.boxShadow = "0 0 25px 6px rgba(255, 200, 0, 0.9)";
+  overlay.style.background = "rgba(255,255,150,0.35)";
+  overlay.style.transition = "opacity 0.6s ease, transform 0.6s ease";
+  overlay.style.zIndex = 9999;
 
-    if (!query) {
-      searchResults.style.display = 'none';
-      return;
-    }
+  document.body.appendChild(overlay);
 
-    const nameMatches = [];
-    const descMatches = [];
+  requestAnimationFrame(() => {
+    overlay.style.opacity = "0";
+    overlay.style.transform = "scale(1.05)";
+  });
 
-    allItems.forEach(item => {
-      const name = item.name.toLowerCase();
-      const desc = item.description.toLowerCase();
+  setTimeout(() => overlay.remove(), 700);
+}
 
-      if (name.includes(query)) {
-        nameMatches.push(item);
-      } else if (desc.includes(query)) {
-        descMatches.push(item);
-      }
-    });
 
-    const matches = [...nameMatches, ...descMatches];
+// --------------------------
+// Search from catalogue.json
+// --------------------------
+let allItems = [];
 
-    if (matches.length === 0) {
-      searchResults.innerHTML = '<div style="padding:5px;">No results found</div>';
-    } else {
-      matches.forEach(item => {
-        const div = document.createElement('div');
-        div.innerHTML = item.name.replace(
-          new RegExp(`(${query})`, 'gi'),
-          '<span class="highlight">$1</span>'
-        );
-        div.addEventListener('click', () => window.location.href = item.url);
-        searchResults.appendChild(div);
+fetch("catalogue.json")
+  .then((res) => res.json())
+  .then((data) => {
+    for (const category in data) {
+      data[category].forEach((item) => {
+        allItems.push(item);
       });
     }
-
-    searchResults.style.display = 'block';
   });
 
-  // Press Enter to open first result
-  searchInput.addEventListener('keydown', e => {
-    if (e.key === 'Enter') {
-      const first = searchResults.querySelector('div');
-      if (first) first.click();
-    }
+const searchInput = document.getElementById("search");
+const searchResults = document.getElementById("search-results");
+
+searchInput.addEventListener("input", () => {
+  const query = searchInput.value.toLowerCase();
+  searchResults.innerHTML = "";
+
+  if (!query) {
+    searchResults.style.display = "none";
+    return;
+  }
+
+  const nameMatches = [];
+  const descMatches = [];
+
+  allItems.forEach((item) => {
+    const name = item.name.toLowerCase();
+    const desc = item.description.toLowerCase();
+
+    if (name.includes(query)) nameMatches.push(item);
+    else if (desc.includes(query)) descMatches.push(item);
   });
 
-  // Hide search results on blur
-  searchInput.addEventListener('blur', () => {
-    setTimeout(() => (searchResults.style.display = 'none'), 150);
-  });
+  const matches = [...nameMatches, ...descMatches];
 
-  // Show search results again on focus if query exists
-  searchInput.addEventListener('focus', () => {
-    if (searchInput.value.trim() && searchResults.children.length > 0)
-      searchResults.style.display = 'block';
-  });
+  if (matches.length === 0) {
+    searchResults.innerHTML =
+      '<div style="padding:5px;">No results found</div>';
+  } else {
+    matches.forEach((item) => {
+      const div = document.createElement("div");
+      div.innerHTML = item.name.replace(
+        new RegExp(`(${query})`, "gi"),
+        '<span class="highlight">$1</span>'
+      );
+      div.addEventListener("click", () => (window.location.href = item.url));
+      searchResults.appendChild(div);
+    });
+  }
+
+  searchResults.style.display = "block";
+});
+
+// Enter → open first result
+searchInput.addEventListener("keydown", (e) => {
+  if (e.key === "Enter") {
+    const first = searchResults.querySelector("div");
+    if (first) first.click();
+  }
+});
+
+// Hide search results on blur
+searchInput.addEventListener("blur", () => {
+  setTimeout(() => (searchResults.style.display = "none"), 150);
+});
+
+// Show results again on focus
+searchInput.addEventListener("focus", () => {
+  if (searchInput.value.trim() && searchResults.children.length > 0)
+    searchResults.style.display = "block";
+});
+
 
 
 
